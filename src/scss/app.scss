@@ -1,0 +1,23 @@
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+body {
+    padding-top: 3rem;
+}
+
+.navbar {
+    padding: 0.2rem 1rem;
+
+    .navbar-toggler {
+        padding: 0.2rem 0.5rem;
+        font-size: 1rem;
+    }
+
+    .dropdown-menu {
+        border: 0;
+    }
+}
