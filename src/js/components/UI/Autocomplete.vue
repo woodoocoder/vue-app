@@ -10,6 +10,7 @@
             v-model="selectedText"
             @focus="inputOnfocus"
             @input="handleInput"
+            @keydown="handleKeyDown"
             autocomplete="off"/>
             
         <div v-if="showList && items.length" class="autocomplete-list">
@@ -74,6 +75,24 @@ export default {
             if(this.onEnterText) {
                 this.showList = true;
                 this.onEnterText(value)
+            }
+        },
+        handleKeyDown(e){
+            let key = e.keyCode;
+            
+            if(!this.showList) return
+
+            const ENTER = 13
+            const ESC = 27
+            
+            switch (key) {
+                case ENTER:
+                    e.preventDefault()
+                    this.showList = false;
+                    break;
+                case ESC:
+                    this.showList = false;
+                    break;
             }
         },
         selectItem(item){
