@@ -10,12 +10,12 @@
 
                         <div class="form-group">
                             <label>Email</label>
-                            <input required v-model="email" type="text" placeholder="Email"/>
+                            <input required v-model="email" type="text" class="form-control" placeholder="Email"/>
                         </div>
 
                         <div class="form-group">
                             <label>Password</label>
-                            <input required v-model="password" type="password" placeholder="Password"/>
+                            <input required v-model="password" type="password" class="form-control" placeholder="Password"/>
                         </div>
 
                         <hr/>
