@@ -9,13 +9,13 @@
                     <form class="register" @submit.prevent="signup">
 
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12 col-sm-6">
                                 <div class="form-group">
                                     <label>First Name</label>
                                     <input required v-model="data.firstname" type="text" class="form-control" placeholder="First Name"/>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12 col-sm-6">
                                 <div class="form-group">
                                     <label>Last Name</label>
                                     <input required v-model="data.lastname" type="text" class="form-control" placeholder="Last Name"/>
@@ -31,30 +31,18 @@
                                 :onFocus="citiesOnFocus"
                                 :onSelect="citySelected"
                                 :onEnterText="searchCity"
-                                id="sdf"
+                                id="cities-select"
                                 name="autocomplete" />
                         </div>
 
                         <div class="form-group">
-                            <label>Birthday</label>
-
-                            <div class="row">
-                                <div class="col-4">
-                                    <input required v-model="birthday.date" type="text" class="form-control" placeholder="Date"/>
-                                </div>
-                                <div class="col-4">
-                                    <input required v-model="birthday.month" type="text" class="form-control" placeholder="Month"/>
-                                </div>
-                                <div class="col-4">
-                                    <input required v-model="birthday.year" type="text" class="form-control" placeholder="Year"/>
-                                </div>
-                            </div>
+                            <Birthday :onSelect="birthdaySelected" />
                         </div>
 
                         <div class="form-group">
                             <label>Gender</label>
                             <div class="row">
-                                <div class="col-4">
+                                <div class="col-6 col-sm-4">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" v-model="data.options.gender" name="gender" value="M" required>
                                         <label class="form-check-label" for="exampleRadios1">
@@ -62,7 +50,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-6 col-sm-4">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" v-model="data.options.gender" name="gender" value="F" required>
                                         <label class="form-check-label" for="exampleRadios2">
@@ -99,11 +87,13 @@
 
 <script>
 import store from '../../store'
-import Autocomplete from '../UI/Autocomplete.vue';
+import Autocomplete from '../UI/Autocomplete.vue'
+import Birthday from '../UI/Birthday.vue'
 
 export default {
     components: {
-        Autocomplete
+        Autocomplete,
+        Birthday
     },
     data() {
         return {
@@ -129,7 +119,7 @@ export default {
     computed: {
         cities() {
             return store.getters['location/cities']
-        }
+        },
     },
     methods: {
         citiesOnFocus: function(e) {
@@ -145,8 +135,14 @@ export default {
                 store.dispatch('location/getCities', { q: q})
             }
         },
+        birthdaySelected: function(date) {
+            this.data.options.birthday = date
+        },
         signup: function () {
             const data = this.data
+
+            console.log(data);
+            return;
 
             store.dispatch('auth/signup', data).then(() => {
                 const { email, password } = this.data
