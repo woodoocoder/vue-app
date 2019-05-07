@@ -141,9 +141,6 @@ export default {
         signup: function () {
             const data = this.data
 
-            console.log(data);
-            return;
-
             store.dispatch('auth/signup', data).then(() => {
                 const { email, password } = this.data
 
