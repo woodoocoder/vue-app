@@ -12,9 +12,9 @@
                 <li
                     class="vue-select-list-item"
                     v-for="item in items"
-                    v-bind:item="item" :key="item.value" >
+                    v-bind:item="item" :key="item[valueField]" >
                     <div @click.prevent="selectItem(item)">
-                        {{ item.text }}
+                        {{ item[textField] }}
                     </div>
                 </li>
             </ul>
@@ -28,12 +28,22 @@
 export default {
     props: {
         value: Array,
+        options: Array,
         id: String,
         name: String,
         title: String,
         selected: String|Number,
         placeholder: String,
         required: Boolean,
+
+        valueField: {
+            type: String,
+            default: 'value'
+        },
+        textField: {
+            type: String,
+            default: 'text'
+        },
 
         onSelect: Function,
     },
@@ -48,25 +58,41 @@ export default {
         value() {
             this.items = this.value
         },
+        options() {
+            this.items = this.options
+        },
         selected() {
-            var _this = this;
-            this.selectedText = this.selected.text
-
-            this.items.forEach(function(item) {
-                if(item.value == _this.selected.value) {
-                    _this.selectItem(item);
-                }
-            });
+            if(this.selected) {
+                var _this = this;
+                this.selectedText = this.selected[this.textField]
+                
+                this.items.forEach(function(item) {
+                    if(item[_this.valueField] == _this.selected[_this.valueField]) {
+                        _this.selectedText = item[_this.textField]
+                        _this.showList = false;
+                    }
+                });
+            }
         }
     },
     mounted() {
         var _this = this;
-        this.items = this.value ? this.value : []
-        
+
+        if(this.value) {
+            this.items = this.value
+        }
+        else if(this.options) {
+            this.items = this.options
+        }
+        else {
+            this.items = [];
+        }
+
         if(this.selected) {
             this.items.forEach(function(item) {
-                if(item.value == _this.selected.value) {
-                    _this.selectItem(item);
+                if(item[_this.valueField] == _this.selected[_this.valueField]) {
+                    _this.selectedText = item[_this.textField]
+                    _this.showList = false;
                 }
             });
         }
@@ -81,8 +107,13 @@ export default {
             this.showList = !this.showList;
         },
         selectItem(item){
-            this.selectedText = item.text
+            this.selectedText = item[this.textField]
             this.showList = false;
+
+            if(this.name) {
+                item.key = this.name
+            }
+            
             this.onSelect ? this.onSelect(item) : null
         }
     }

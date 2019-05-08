@@ -2,8 +2,9 @@
 import Home from './components/Home.vue';
 import Login from './components/Auth/Login.vue';
 import Register from './components/Auth/Register.vue';
-import Profile from './components/User/Profile.vue';
 
+import Profile from './components/User/Profile.vue';
+import Settings from './components/User/Settings.vue';
 
 import store from './store'
 
@@ -30,6 +31,10 @@ export default {
     },
     {
         path: '/profile', name: 'profile', component: Profile,
+        beforeEnter: ifAuthenticated,
+    },
+    {
+        path: '/settings', name: 'settings', component: Settings,
         beforeEnter: ifAuthenticated,
     },
   ]

@@ -20,6 +20,9 @@
                                     <router-link :to="{ name: 'profile' }" class="dropdown-item">Profile</router-link>
                                 </li>
                                 <li>
+                                    <router-link :to="{ name: 'settings' }" class="dropdown-item">Settings</router-link>
+                                </li>
+                                <li>
                                     <a href="#" @click="logout()" class="dropdown-item">Logout</a>
                                 </li>
                             </ul>
@@ -56,7 +59,13 @@ export default {
             return store.getters['auth/user']
         }
     },
+    watch: {
+        '$route': 'routeChanged'
+    },
     methods: {
+        routeChanged() {
+            $('.navbar-collapse').collapse('hide');
+        },
         logout: function () {
             store.dispatch('auth/logout').then(resp => {
                 this.$router.go('/login')
