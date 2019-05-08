@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 import auth from './store/auth'
 import user from './store/user'
 import location from './store/location'
-import dictionarie from './store/dictionarie'
+import dictionary from './store/dictionary'
 
 
 Vue.use(Vuex)
@@ -14,6 +14,6 @@ export default new Vuex.Store({
         auth,
         user,
         location,
-        dictionarie
+        dictionary
     }
 })

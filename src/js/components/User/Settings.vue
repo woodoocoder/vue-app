@@ -48,7 +48,7 @@ export default {
     },
     computed: {
         info() {
-            return store.getters['dictionarie/info']
+            return store.getters['dictionary/info']
         },
         user() {
             return store.getters['user/user']
@@ -61,7 +61,7 @@ export default {
                 _this.updateSelectedInfo(response.data)
             })
 
-        store.dispatch('dictionarie/getInfo')
+        store.dispatch('dictionary/getInfo')
     },
     methods: {
         infoSelected: function(selected) {
