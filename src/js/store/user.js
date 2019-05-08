@@ -32,6 +32,17 @@ const module = {
                 })
             })
         },
+        updateFilters: ({commit, dispatch}, data) => {
+            return new Promise((resolve, reject) => {
+                axios.put('user/filters', data).then(resp => {
+                    commit('USER_REQUEST', resp.data.data)
+                    resolve(resp.data)
+                })
+                .catch(err => {
+                    reject(err)
+                })
+            })
+        },
 
     },
     getters: {

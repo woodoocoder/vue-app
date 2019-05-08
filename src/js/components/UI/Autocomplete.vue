@@ -12,7 +12,7 @@
             @input="handleInput"
             @keydown="handleKeyDown"
             autocomplete="off"/>
-            
+        
         <div v-if="showList && items.length" class="autocomplete-list">
             <ul>
                 <li

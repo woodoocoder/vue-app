@@ -2,11 +2,15 @@
 const module = {
     namespaced: true,
     state: {
-        info: []
+        info: [],
+        reasons: []
     },
     mutations: {
         INFO_REQUEST: (state, info) => {
             state.info = info;
+        },
+        REASONS_REQUEST: (state, reasons) => {
+            state.reasons = reasons;
         }
     },
     actions: {
@@ -21,9 +25,21 @@ const module = {
                 })
             })
         },
+        getReasons: ({commit, dispatch}) => {
+            return new Promise((resolve, reject) => {
+                axios.get('reasons').then(resp => {
+                    commit('REASONS_REQUEST', resp.data.data)
+                    resolve(resp)
+                })
+                .catch(err => {
+                    reject(err)
+                })
+            })
+        },
     },
     getters: {
         info: state => state.info,
+        reasons: state => state.reasons,
     }
 }
   
