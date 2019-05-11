@@ -12,7 +12,7 @@ const module = {
     actions: {
         getUser: ({commit, dispatch}) => {
             return new Promise((resolve, reject) => {
-                axios.get('auth/user').then(resp => {
+                axios.get('user').then(resp => {
                     commit('USER_REQUEST', resp.data.data)
                     resolve(resp.data)
                 })
