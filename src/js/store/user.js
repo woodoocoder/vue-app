@@ -7,6 +7,21 @@ const module = {
     mutations: {
         USER_REQUEST: (state, user) => {
             state.user = user;
+
+            if(user.filters.city) {
+                var city = user.filters.city;
+                var cityName = (city.name)? city.name: city.en_name;
+
+                if(city.region) {
+                    cityName += ', '+((city.region.name)? city.region.name: city.region.en_name);
+                }
+
+                if(city.country) {
+                    cityName += ', '+((city.country.name)? city.country.name: city.country.en_name);
+                }
+
+                state.user.filters.city.name = cityName;
+            }
         }
     },
     actions: {

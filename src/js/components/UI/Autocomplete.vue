@@ -35,6 +35,7 @@ export default {
     props: {
         value: Array,
         id: String,
+        selected: Object,
         name: String,
         placeholder: String,
         required: Boolean,
@@ -54,6 +55,11 @@ export default {
     watch: {
         value() {
             this.items = this.value
+        },
+        selected() {
+            if(this.selected) {
+                this.selectItem(this.selected);
+            }
         }
     },
     mounted() {

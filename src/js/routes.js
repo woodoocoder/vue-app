@@ -22,6 +22,7 @@ export default {
   routes: [
     {
       path: '/', name: 'home', component: Home,
+      beforeEnter: ifAuthenticated,
     },
     {
         path: '/register', name: 'register', component: Register,

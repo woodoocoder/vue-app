@@ -10,13 +10,16 @@ try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
 
+    window.wNumb = require('wnumb');
     require('bootstrap');
+    
 } catch (e) {}
 
 
 window.axios = require('axios');
 
-window.baseURL = 'http://api.dating-app.tk'
+window.baseURL = 'http://127.0.0.1:8000'
+//window.baseURL = 'http://api.dating-app.tk'
 
 window.axios.defaults.baseURL = baseURL+'/api';
 window.axios.defaults.headers.common['Content-Type'] = 'application/json';
