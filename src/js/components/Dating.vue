@@ -4,7 +4,7 @@
             <div class="row">
                 <div v-for="item in users"
                     v-bind:item="item" :key="item.id"
-                    class="col-sm-6 col-md-4 col-lg-3">
+                    class="col-6 col-md-4 col-lg-3">
                         <user-card :user="item" />
                 </div>
             </div>
@@ -89,13 +89,13 @@
 <script>
 import store from '../store'
 import Autocomplete from './UI/Autocomplete.vue'
-import BaseSlider from './UI/BaseSlider.vue'
+//import BaseSlider from './UI/BaseSlider.vue'
 import UserCard from './User/Card.vue'
 
 export default {
     components: {
         Autocomplete,
-        BaseSlider,
+        //BaseSlider,
         UserCard
     },
     data() {

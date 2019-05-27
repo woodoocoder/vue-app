@@ -13,15 +13,14 @@ body {
 }
 
 .navbar {
-    padding: 0.2rem 1rem;
+    padding: 0.3rem 1rem;
+    
+    .navbar-nav {
+        flex-direction: row;
 
-    .navbar-toggler {
-        padding: 0.2rem 0.5rem;
-        font-size: 1rem;
-    }
-
-    .dropdown-menu {
-        border: 0;
+        li {
+            margin-left: 1rem;
+        }
     }
 }
 
@@ -50,5 +49,21 @@ body {
         object-fit: cover;
         -o-object-position: 50% 30%;
         object-position: 50% 50%;
+    }
+}
+
+@include media-breakpoint-down(xs) {
+    #main-navbar {
+        bottom: 0;
+        top: initial;
+    }
+
+    body {
+        padding-top: 0.5rem;
+        padding-bottom: 3rem;
+    }
+
+    .card .card-img-top {
+        max-height: 230px;
     }
 }

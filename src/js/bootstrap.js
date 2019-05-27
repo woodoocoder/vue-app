@@ -30,3 +30,9 @@ const token = localStorage.getItem('user-token')
 if(token) {
   axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
 }
+
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faHome } from '@fortawesome/free-solid-svg-icons'
+import { faCog } from '@fortawesome/free-solid-svg-icons'
+library.add(faHome)
+library.add(faCog)

@@ -23,6 +23,9 @@
                 </div>
             </div>
         </div>
+        <div class="col-12">
+            <a href="#" @click="logout()">Logout</a>
+        </div>
     </div>
 </div>
 </template>
@@ -78,6 +81,11 @@ export default {
             if(data.information !== null) {
                 this.information = data.information
             }
+        },
+        logout: function () {
+            store.dispatch('auth/logout').then(resp => {
+                this.$router.go('/login')
+            })
         }
     }
 }
