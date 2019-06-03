@@ -1,10 +1,16 @@
 <template>
-<div v-if="user.information" class="row">
+<div id="profile" class="row">
 
-    <div class="col-12">
-        <h4>Location</h4>
+    <div class="col-4">
+        <img class="avatar" :src="baseURL+user.avatar_url" :alt="user.firstname">
+    </div>
+    <div class="col-8">
+        <b>{{ user.firstname }} {{ user.lastname }}</b>
+        <router-link :to="{ name: 'settings' }" class="text-center float-right">
+            <font-awesome-icon icon="cog" />
+        </router-link>
 
-        <div v-if="user.filters.city">{{user.filters.city.name}}</div>
+        <div v-if="user.filters && user.filters.city">{{user.filters.city.name}}</div>
     </div>
 
     <div class="col-12 mt-2">
@@ -28,7 +34,11 @@
 import store from '../../store'
 
 export default {
-    
+    data() {
+        return {
+            baseURL: window.baseURL
+        }
+    },
     computed: {
         info() {
             return store.getters['dictionary/info'];

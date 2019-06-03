@@ -5,20 +5,20 @@
                 <div class="col-12">
                     <div v-if="isAuthenticated" class="row">
                         <div class="col-4 text-center">
-                            <router-link :to="{ name: 'home' }" class="text-secondary text-center">
-                                <font-awesome-icon icon="home" />
+                            <router-link :to="{ name: 'home' }" class="text-secondary text-center home-link">
+                                <font-awesome-icon icon="users" />
                             </router-link>
                         </div>
                         <div class="col-4 text-center">
                             <!--
-                            <router-link :to="{ name: 'profile' }" class="text-secondary text-center">
-                                {{ user.firstname }}
+                            <router-link :to="{ name: 'settings' }" class="text-secondary text-center">
+                                <font-awesome-icon icon="cog" />
                             </router-link>
                             -->
                         </div>
                         <div class="col-4 text-center">
-                            <router-link :to="{ name: 'settings' }" class="text-secondary text-center">
-                                <font-awesome-icon icon="cog" />
+                            <router-link :to="{ name: 'profile' }" class="text-secondary text-center profile-link">
+                                <img class="avatar" :src="baseURL+user.avatar_url" :alt="user.firstname">
                             </router-link>
                         </div>
                     </div>
@@ -48,7 +48,12 @@
 import store from './store'
 
 export default {
-    
+    data() {
+        return {
+            baseURL: window.baseURL,
+            scrollY: 0
+        }
+    },
     computed: {
         isAuthenticated() {
             return store.getters['auth/isAuthenticated']
@@ -58,18 +63,29 @@ export default {
         }
     },
     watch: {
-        '$route': 'routeChanged'
+        '$route': 'routeChanged',
+        'scrollY': function(from, to) {
+            //console.log(from+' '+to);
+        }
     },
     methods: {
         routeChanged() {
             $('.navbar-collapse').collapse('hide');
+        },
+        handleScroll() {
+            this.scrollY = window.scrollY;
         }
     },
     created () {
         if(this.isAuthenticated) {
             store.dispatch('auth/getUser');
         }
-        
+    },
+    beforeMount () {
+        window.addEventListener('scroll', this.handleScroll);
+    },
+    beforeDestroy () {
+        window.removeEventListener('scroll', this.handleScroll);
     }
 }
 </script>

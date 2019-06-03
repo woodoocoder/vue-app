@@ -32,7 +32,8 @@ if(token) {
 }
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faHome } from '@fortawesome/free-solid-svg-icons'
+
+import { faUsers } from '@fortawesome/free-solid-svg-icons'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
-library.add(faHome)
+library.add(faUsers)
 library.add(faCog)
