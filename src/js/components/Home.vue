@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Dating from './Dating.vue'
+import Dating from './Dating/Users.vue'
 
 export default {
     components: {

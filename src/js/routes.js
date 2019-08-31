@@ -38,6 +38,10 @@ export default {
         beforeEnter: ifAuthenticated,
     },
     {
+        path: '/profile/:userId', name: 'view-profile', component: Profile,
+        beforeEnter: ifAuthenticated,
+    },
+    {
         path: '/settings', name: 'settings', component: Settings,
         beforeEnter: ifAuthenticated,
     },

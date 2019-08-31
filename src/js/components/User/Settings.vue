@@ -2,15 +2,15 @@
 <div>
     <div class="row">
         <div class="col-12">
-            <h4>About You</h4>
+            <h4 class="text-center">About You</h4>
 
             <div class="row"
                 v-for="infoItem in info"
                 v-bind:item="infoItem" :key="infoItem.name">
-                <div class="col-3">
+                <div class="col-4">
                     {{ infoItem.name }}
                 </div>
-                <div class="col-9">
+                <div class="col-8">
                     <vue-select
                         :title="infoItem.name"
                         :options="infoItem.items"

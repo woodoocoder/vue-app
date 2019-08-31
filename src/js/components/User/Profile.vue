@@ -1,22 +1,30 @@
 <template>
 <div id="profile" class="row">
 
-    <div class="col-4">
+    <div class="col-3">
         <img class="avatar" :src="baseURL+user.avatar_url" :alt="user.firstname">
     </div>
-    <div class="col-8">
-        <b>{{ user.firstname }} {{ user.lastname }}</b>
-        <router-link :to="{ name: 'settings' }" class="text-center float-right">
-            <font-awesome-icon icon="cog" />
-        </router-link>
-
-        <div v-if="user.filters && user.filters.city">{{user.filters.city.name}}</div>
+    <div class="col-9 header">
+        <div class="row">
+            <div class="col-9">
+                <h5>{{ user.firstname }} {{ user.lastname }}</h5>
+            </div>
+            <div class="col-3">
+                <router-link v-if="!userId || userId == user.id" :to="{ name: 'settings' }" class="text-center float-right">
+                    <font-awesome-icon icon="cog" />
+                </router-link>
+            </div>
+            <div v-if="user.filters && user.filters.city" class="col-12 location">
+                {{user.filters.city.name}}
+            </div>
+        </div>
     </div>
 
     <div class="col-12 mt-2">
-        <h4>Personal information</h4>
+        <h5>Personal information</h5>
 
-        <div v-for="info in user.information">
+        <div v-for="info in user.information"
+                v-bind:item="info" :key="info.id">
             <div class="row" v-if="info">
                 <div class="col-6 col-sm-3">
                     {{info.type}}:
@@ -36,7 +44,8 @@ import store from '../../store'
 export default {
     data() {
         return {
-            baseURL: window.baseURL
+            baseURL: window.baseURL,
+            userId: null
         }
     },
     computed: {
@@ -48,6 +57,9 @@ export default {
         },
     },
     mounted() {
+        this.userId = this.$route.params.userId
+    },
+    created() {
         store.dispatch('user/getUser')
         store.dispatch('dictionary/getInfo')
     },

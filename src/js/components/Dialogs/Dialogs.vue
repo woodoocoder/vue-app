@@ -2,11 +2,9 @@
     <div class="dialogs">
         <div class="row dialog"
             v-for="item in dialogs"
-            v-bind:item="item" :key="item.id">
+            v-bind:item="item" :key="item.id" @click="openDialog(item.id)">
                 <div class="col-2">
-                    <router-link :to="{ name: 'dialog', params: {dialogId: item.id}}">
-                        f
-                    </router-link>
+                    
                 </div>
                 <div class="col-10">
                     <div class="row">
@@ -40,6 +38,11 @@ export default {
         dialogs() {
             return store.getters['dialogs/dialogs']
         }
+    },
+    methods: {
+        openDialog(dialogId) {
+            this.$router.push({ name: 'dialog', params: { dialogId:dialogId } })
+        },
     }
 }
 </script>
