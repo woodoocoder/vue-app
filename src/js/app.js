@@ -2,7 +2,6 @@ require('./bootstrap');
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import moment from 'moment';
 
 import Routes from './routes';
 import App from './App.vue';
@@ -10,8 +9,7 @@ import App from './App.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
-
-Vue.use(require('vue-moment'), {moment})
+Vue.use(require('vue-moment'));
 
 Vue.use(VueRouter);
 Vue.router = new VueRouter(Routes);

@@ -81,3 +81,41 @@ body {
         max-height: 230px;
     }
 }
+
+
+.dialogs {
+    .dialog {
+        margin-top: 0.3rem;
+        padding-bottom: 0.3rem;
+        border-bottom: 1px solid #eee;
+
+        .subject {
+            font-weight: bold;
+        }
+
+        .date {
+            font-size: 0.8rem;
+        }
+    }
+}
+
+.messages {
+    .header {
+        font-size: 1em;
+
+        .back-link,
+        .info-link {
+            color: #9db5cd;
+        }
+
+        .subject {
+            font-weight: bold;
+        }
+    }
+
+    .message {
+        .date {
+            font-size: 0.8rem;
+        }
+    }
+}

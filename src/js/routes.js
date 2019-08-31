@@ -6,6 +6,9 @@ import Register from './components/Auth/Register.vue';
 import Profile from './components/User/Profile.vue';
 import Settings from './components/User/Settings.vue';
 
+import Dialogs from './components/Dialogs/Dialogs.vue';
+import Dialog from './components/Dialogs/Dialog.vue';
+
 import store from './store'
 
 var ifAuthenticated = (to, from, next) => {
@@ -36,6 +39,14 @@ export default {
     },
     {
         path: '/settings', name: 'settings', component: Settings,
+        beforeEnter: ifAuthenticated,
+    },
+    {
+        path: '/dialogs', name: 'dialogs', component: Dialogs,
+        beforeEnter: ifAuthenticated,
+    },
+    {
+        path: '/dialog/:dialogId', name: 'dialog', component: Dialog,
         beforeEnter: ifAuthenticated,
     },
   ]

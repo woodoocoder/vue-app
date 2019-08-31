@@ -10,15 +10,13 @@
                             </router-link>
                         </div>
                         <div class="col-4 text-center">
-                            <!--
-                            <router-link :to="{ name: 'settings' }" class="text-secondary text-center">
-                                <font-awesome-icon icon="cog" />
+                            <router-link :to="{ name: 'dialogs' }" class="text-secondary text-center">
+                                <font-awesome-icon icon="envelope" />
                             </router-link>
-                            -->
                         </div>
                         <div class="col-4 text-center">
                             <router-link :to="{ name: 'profile' }" class="text-secondary text-center profile-link">
-                                <img class="avatar" :src="baseURL+user.avatar_url" :alt="user.firstname">
+                                <font-awesome-icon icon="user" />
                             </router-link>
                         </div>
                     </div>
@@ -79,6 +77,7 @@ export default {
     created () {
         if(this.isAuthenticated) {
             store.dispatch('auth/getUser');
+            store.dispatch('dialogs/getDialogs');
         }
     },
     beforeMount () {

@@ -6,7 +6,7 @@ import user from './store/user'
 import dating from './store/dating'
 import location from './store/location'
 import dictionary from './store/dictionary'
-
+import dialogs from './store/dialogs'
 
 Vue.use(Vuex)
 
@@ -16,6 +16,7 @@ export default new Vuex.Store({
         user,
         dating,
         location,
-        dictionary
+        dictionary,
+        dialogs,
     }
 })
