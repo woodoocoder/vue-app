@@ -132,8 +132,10 @@ h1, h2, h3, h4, h5, h6 {
         top: 0;
         left: 0;
         right: 0;
-        height: 5vh;
+        height: 1.5em;
         padding-top: 0.8vh;
+        z-index: 10000;
+        background: #fff;
 
         .subject {
             font-weight: bold;
@@ -257,6 +259,10 @@ h1, h2, h3, h4, h5, h6 {
 
 @include media-breakpoint-up(sm) {
     .messages {
+        .header {
+            position: relative;
+        }
+
         .message-form {
             bottom: 0em;
             padding: .8rem;
