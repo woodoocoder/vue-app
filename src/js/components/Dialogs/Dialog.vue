@@ -21,7 +21,7 @@
                 v-bind:item="item" :key="item.id">
                 <div class="col-12">
                     <div :class="isMyMessage(item)?'body right':'body left'">
-                        {{ item.message }}
+                        <div v-text="item.message"></div>
                         <span class="date">
                             {{ item.created_at | moment("DD.MM.YY") }}
                         </span>

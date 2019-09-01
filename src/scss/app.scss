@@ -129,10 +129,11 @@ h1, h2, h3, h4, h5, h6 {
     .header {
         font-size: 1.2em;
         position: fixed;
-        top: .5vh;
+        top: 0;
         left: 0;
         right: 0;
         height: 5vh;
+        padding-top: 0.8vh;
 
         .subject {
             font-weight: bold;
@@ -140,7 +141,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     .content {
-        height: 82vh;
+        height: 87vh;
         margin-top: 5vh;
         padding-bottom: 3vh;
         overflow-y: auto;
@@ -223,12 +224,34 @@ h1, h2, h3, h4, h5, h6 {
     }
     .message-form {
         position: fixed;
-        bottom: 1.2em;
+        bottom: 0;
         left: 0;
         right: 0;
-        height: 4em;
-        padding: .2rem;
+        height: auto;
+        padding: 0.2rem;
         background-color: #eee;
+        z-index: 10000;
+
+        textarea {
+            padding-right: 2rem;
+            background-color: #eee;
+            border: 0;
+            border-bottom: 1px solid $message-btn-color;
+
+            &:focus {
+                border-color: none;
+                outline: 0;
+                box-shadow: none;
+            }
+        }
+
+        .send-btn {
+            position: absolute;
+            right: .5em;
+            top: .2em;
+            color: $message-btn-color;
+            font-size: 1.5rem;
+        }
     }
 }
 
@@ -237,6 +260,12 @@ h1, h2, h3, h4, h5, h6 {
         .message-form {
             bottom: 0em;
             padding: .8rem;
+
+
+            .send-btn {
+                right: 1em;
+                top: .6em;
+            }
         }
     }
 }
