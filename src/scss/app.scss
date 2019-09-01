@@ -127,15 +127,116 @@ h1, h2, h3, h4, h5, h6 {
 
 .messages {
     .header {
+        font-size: 1.2em;
+        position: fixed;
+        top: .5vh;
+        left: 0;
+        right: 0;
+        height: 5vh;
 
         .subject {
             font-weight: bold;
         }
     }
 
-    .message {
-        .date {
-            font-size: 0.8rem;
+    .content {
+        height: 82vh;
+        margin-top: 5vh;
+        padding-bottom: 3vh;
+        overflow-y: auto;
+
+        .message {
+            .body {
+                position: relative;
+                margin-top: 0.2rem;
+                margin-bottom: 0.2rem;
+                padding: 0.7rem 0.85rem;
+                max-width: 70vw;
+                min-width: 20vw;
+                min-height: 50px;
+                border-radius: 10px;
+                border: 1px solid $message-border;
+                background-color: $message-background;
+                text-align: left;
+
+                .date {
+                    font-size: .7rem;
+                    position: absolute;
+                    bottom: 0px;
+                    right: 10px;
+                    color: #717171;
+                }
+
+                &:after,
+                &:before {
+                    content: '';
+                    position: absolute;
+                    width: 0;
+                    height: 0;
+                }
+
+                &:after {
+                    border-left: 15px solid transparent;
+                    border-right: 15px solid transparent;
+                }
+
+                &:before {
+                    border-left: 16px solid transparent;
+                    border-right: 16px solid transparent;
+                }
+
+                &.left {
+                    float: left;
+                    left: 1em;
+
+                    &:after {
+                        border-top: 15px solid $message-background;
+                        top: 0;
+                        left: -15px;
+                    }
+
+                    &:before {
+                        border-top: 17px solid $message-border;
+                        top: -1px;
+                        left: -17px;
+                    }
+                }
+
+                &.right {
+                    float: right;
+                    right: 1em;
+
+                    &:after {
+                        border-bottom: 15px solid $message-background;
+                        bottom: 0;
+                        right: -15px;
+                    }
+
+                    &:before {
+                        border-bottom: 17px solid $message-border;
+                        bottom: -1px;
+                        right: -17px;
+                    }
+                }
+            }
+        }
+    }
+    .message-form {
+        position: fixed;
+        bottom: 1.2em;
+        left: 0;
+        right: 0;
+        height: 4em;
+        padding: .2rem;
+        background-color: #eee;
+    }
+}
+
+@include media-breakpoint-up(sm) {
+    .messages {
+        .message-form {
+            bottom: 0em;
+            padding: .8rem;
         }
     }
 }
