@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <img class="card-img-top" :src="baseURL+user.avatar_url" :alt="user.firstname">
+        <avatar :user="user" :size="365" />
         
         <div class="card-body" style="padding:10px;">
             {{ user.firstname }}
@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import Avatar from './Avatar.vue'
 
 export default {
     props: {
@@ -18,6 +19,9 @@ export default {
         return {
             baseURL: window.baseURL
         }
+    },
+    components: {
+        Avatar
     },
     mounted() {
         

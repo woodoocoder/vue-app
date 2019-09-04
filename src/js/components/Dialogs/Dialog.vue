@@ -58,7 +58,7 @@ export default {
             return store.getters['auth/user']
         }
     },
-    created () {
+    mounted () {
         var _this = this;
         this.dialogId = this.$route.params.dialogId
         var data = {

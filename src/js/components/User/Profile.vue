@@ -2,7 +2,7 @@
 <div id="profile" class="row">
 
     <div class="col-3">
-        <img class="avatar" :src="baseURL+user.avatar_url" :alt="user.firstname">
+        <avatar :user="user" size="60" :rounded="true" />
     </div>
     <div class="col-9 header">
         <div class="row">
@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import Avatar from './Avatar.vue'
 import store from '../../store'
 
 export default {
@@ -47,6 +48,9 @@ export default {
             baseURL: window.baseURL,
             userId: null
         }
+    },
+    components: {
+        Avatar
     },
     computed: {
         info() {

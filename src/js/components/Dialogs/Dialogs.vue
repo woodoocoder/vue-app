@@ -4,7 +4,9 @@
             v-for="item in dialogs"
             v-bind:item="item" :key="item.id" @click="openDialog(item.id)">
                 <div class="col-2">
-                    
+                    <div v-if="item.latest_message">
+                        <avatar :user="item.latest_message.user" size="40" :rounded="true" />
+                    </div>
                 </div>
                 <div class="col-10">
                     <div class="row">
@@ -17,7 +19,9 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            last message last message
+                            <div v-if="item.latest_message">
+                                {{item.latest_message.message}}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -27,12 +31,16 @@
 
 <script>
 import store from '../../store'
+import Avatar from '../User/Avatar.vue'
 
 export default {
     data() {
         return {
             baseURL: window.baseURL
         }
+    },
+    components: {
+        Avatar
     },
     computed: {
         dialogs() {
