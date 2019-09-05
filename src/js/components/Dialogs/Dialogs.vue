@@ -47,6 +47,9 @@ export default {
             return store.getters['dialogs/dialogs']
         }
     },
+    created () {
+        store.dispatch('dialogs/getDialogs');
+    },
     methods: {
         openDialog(dialogId) {
             this.$router.push({ name: 'dialog', params: { dialogId:dialogId } })

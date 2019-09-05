@@ -3,7 +3,7 @@
         <label>Birthday</label>
 
         <div class="row">
-            <div class="col-12 col-sm-4">
+            <div class="col-4 col-sm-4">
                 <vue-select
                     :title="'Date'"
                     v-model="dates"
@@ -11,7 +11,7 @@
                     :onSelect="dateSelected"
                     :placeholder="'Date'"/>
             </div>
-            <div class="col-12 col-sm-4">
+            <div class="col-4 col-sm-4">
                 <vue-select
                     :title="'Month'"
                     v-model="months"
@@ -19,7 +19,7 @@
                     :onSelect="monthSelected"
                     :placeholder="'Month'"/>
             </div>
-            <div class="col-12 col-sm-4">
+            <div class="col-4 col-sm-4">
                 <vue-select
                     :title="'Year'"
                     v-model="years"
@@ -145,3 +145,14 @@ export default {
     }
 }
 </script>
+
+<style>
+    .form-control {
+        padding: 0.1rem 0.2rem;
+    }
+    .vue-select .vue-select-list .vue-select-list-item {
+        padding: .1rem;
+        font-size: 0.8rem;
+        line-height: 1.3rem;
+    }
+</style>

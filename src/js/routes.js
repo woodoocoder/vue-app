@@ -9,6 +9,9 @@ import Settings from './components/User/Settings.vue';
 import Dialogs from './components/Dialogs/Dialogs.vue';
 import Dialog from './components/Dialogs/Dialog.vue';
 
+import Likes from './components/Dating/Likes.vue';
+
+
 import store from './store'
 
 var ifAuthenticated = (to, from, next) => {
@@ -51,6 +54,18 @@ export default {
     },
     {
         path: '/dialog/:dialogId', name: 'dialog', component: Dialog,
+        beforeEnter: ifAuthenticated,
+    },
+    {
+        path: '/new-dialog/:participantId', name: 'new-dialog', component: Dialog,
+        beforeEnter: ifAuthenticated,
+    },
+    {
+        path: '/likes', name: 'likes', component: Likes,
+        beforeEnter: ifAuthenticated,
+    },
+    {
+        path: '/likes/matched', name: 'matched', component: Likes,
         beforeEnter: ifAuthenticated,
     },
   ]

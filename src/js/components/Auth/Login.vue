@@ -1,9 +1,11 @@
 <template>
-    <div class="card">
-        <div class="card-header">
-            <h3>Sign in</h3>
-        </div>
+    <div id="login" class="card">
         <div class="card-body">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h4>Sign in</h4>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-12">
                     <form class="login" @submit.prevent="login">
@@ -19,7 +21,7 @@
                         </div>
 
                         <hr/>
-                        <button type="submit">Login</button>
+                        <button type="submit" class="btn btn-success btn-block">Login</button>
                     </form>
                 </div>
             </div>

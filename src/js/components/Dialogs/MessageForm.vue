@@ -23,19 +23,22 @@ import store from '../../store'
 export default {
     props: [
         'dialogId',
+        'participants'
     ],
     data() {
         return {
             baseURL: window.baseURL,
             message: {
                 dialog_id: null,
-                message: ''
+                message: '',
+                participants: []
             }
         }
     },
     mounted() {
         this.message.dialog_id = this.dialogId
-
+        this.message.participants = this.participants
+        
         var textarea = document.querySelector("textarea")
         textarea.focus();
     },
@@ -48,13 +51,25 @@ export default {
                 return;
             }
 
-            store.dispatch('dialogs/sendMessage', data)
-            .then(function(response) {
-                _this.message.message = '';
-                var content = document.querySelector(".content")
-                content.scrollTo(0, content.scrollHeight)
-            }).catch((error => {
-            }))
+            if(this.message.dialog_id != null) {
+                store.dispatch('dialogs/sendMessage', data)
+                    .then(function(response) {
+                        _this.message.message = '';
+                        var content = document.querySelector(".content")
+                        content.scrollTo(0, content.scrollHeight)
+                    }).catch((error => {
+
+                    }))
+            }
+            else {
+                store.dispatch('dialogs/newDialog', data)
+                    .then(function(response) {
+                        _this.message.message = '';
+                        _this.$router.push({ name: 'dialog', params: {dialogId:response.id} })
+                    }).catch((error => {
+
+                    }))
+            }
         }
     }
 }

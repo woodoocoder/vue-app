@@ -151,8 +151,6 @@ export default {
                 .then(function(response) {
                     store.dispatch('dating/getUsers', filters)
                 })
-
-            
         }
     }
 }

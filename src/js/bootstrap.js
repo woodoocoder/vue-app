@@ -33,7 +33,7 @@ if(token) {
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 
-import { faUser, faUsers, faCog, faEnvelope, faChevronLeft, faInfoCircle, faTimes, faPaperPlane }
+import { faUser, faUsers, faCog, faEnvelope, faChevronLeft, faInfoCircle, faTimes, faPaperPlane, faHeart }
   from '@fortawesome/free-solid-svg-icons'
 library.add(faUser)
 library.add(faUsers)
@@ -43,3 +43,4 @@ library.add(faChevronLeft)
 library.add(faInfoCircle)
 library.add(faTimes)
 library.add(faPaperPlane)
+library.add(faHeart)

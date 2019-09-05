@@ -4,7 +4,7 @@
             <span v-if="selectedText == ''" class="text-secondary">{{ title }}</span>
             <span v-else="">{{ selectedText }}</span>
 
-            <span v-if="this.showList" class="float-right">X</span>
+            <span v-if="this.showList" class="close">X</span>
         </div>
             
         <div v-if="showList && items.length" class="vue-select-list">
@@ -124,6 +124,13 @@ export default {
     .vue-select {
         position: relative;
         width: 100%;
+    }
+    .close {
+        top: .3rem;
+        right: .5rem;
+        position: absolute;
+        font-weight: 700;
+        font-size: 1.2rem;
     }
     .vue-select .vue-select-list {
         position: absolute;

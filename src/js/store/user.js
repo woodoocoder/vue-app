@@ -8,7 +8,7 @@ const module = {
         USER_REQUEST: (state, user) => {
             state.user = user;
 
-            if(user.filters.city) {
+            if(user.filters && user.filters.city) {
                 var city = user.filters.city;
                 var cityName = (city.name)? city.name: city.en_name;
 
@@ -25,9 +25,10 @@ const module = {
         }
     },
     actions: {
-        getUser: ({commit, dispatch}) => {
+        getUser: ({commit, dispatch}, userId) => {
             return new Promise((resolve, reject) => {
-                axios.get('user').then(resp => {
+                var url = (userId)?'user/show/'+userId:'user';
+                axios.get(url).then(resp => {
                     commit('USER_REQUEST', resp.data.data)
                     resolve(resp.data)
                 })

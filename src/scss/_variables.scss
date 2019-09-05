@@ -59,7 +59,7 @@ $colors: map-merge((
 
 $default:       #172b4d !default;
 $primary:       #5e72e4 !default;
-$secondary:     #f4f5f7 !default;
+$secondary:     #cdced1 !default;
 $success:       $green !default;
 $info:          $teal !default;
 $warning:       $orange !default;
@@ -71,8 +71,8 @@ $darker:        darken($gray-900, 15%) !default;
 
 // Fonts
 
-$font-family-base: 'Open Sans', sans-serif !default;
-$font-family-alt: 'Open Sans', sans-serif !default;
+$font-family-base: 'Ubuntu', serif !default;
+$font-family-alt: 'Ubuntu', sans-serif !default;
 
 $font-size-base:              1rem !default; // Assumes the browser default, typically `16px`
 $font-size-xl:                ($font-size-base * 1.5);

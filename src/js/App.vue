@@ -4,31 +4,36 @@
             <div id="main-navbar" class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
                 <div class="col-12">
                     <div v-if="isAuthenticated" class="row">
-                        <div class="col-4 text-center">
-                            <router-link :to="{ name: 'home' }" class="text-secondary text-center home-link">
+                        <div class="col-3 text-center">
+                            <router-link :to="{ name: 'home' }" class="text-center home-link">
                                 <font-awesome-icon icon="users" />
                             </router-link>
                         </div>
-                        <div class="col-4 text-center">
-                            <router-link :to="{ name: 'dialogs' }" class="text-secondary text-center">
+                        <div class="col-3 text-center">
+                            <router-link :to="{ name: 'likes' }" class="text-center">
+                                <font-awesome-icon icon="heart" />
+                            </router-link>
+                        </div>
+                        <div class="col-3 text-center">
+                            <router-link :to="{ name: 'dialogs' }" class="text-center">
                                 <font-awesome-icon icon="envelope" />
                             </router-link>
                         </div>
-                        <div class="col-4 text-center">
-                            <router-link :to="{ name: 'profile' }" class="text-secondary text-center profile-link">
+                        <div class="col-3 text-center">
+                            <router-link :to="{ name: 'profile' }" class="text-center profile-link">
                                 <font-awesome-icon icon="user" />
                             </router-link>
                         </div>
                     </div>
                     <div v-else="" class="row">
                         <div class="col-6 text-center">
-                            <router-link :to="{ name: 'login' }" class="text-secondary text-center">
-                                Login
+                            <router-link :to="{ name: 'login' }" class="text-center">
+                                <h5>Login</h5>
                             </router-link>
                         </div>
                         <div class="col-6 text-center">
-                            <router-link :to="{ name: 'register' }" class="text-secondary text-center">
-                                Register
+                            <router-link :to="{ name: 'register' }" class="text-center">
+                                <h5>Register</h5>
                             </router-link>
                         </div>
                     </div>
@@ -77,7 +82,6 @@ export default {
     created () {
         if(this.isAuthenticated) {
             store.dispatch('auth/getUser');
-            store.dispatch('dialogs/getDialogs');
         }
     },
     beforeMount () {

@@ -10,7 +10,7 @@
                 <h5>{{ user.firstname }} {{ user.lastname }}</h5>
             </div>
             <div class="col-3">
-                <router-link v-if="!userId || userId == user.id" :to="{ name: 'settings' }" class="text-center float-right">
+                <router-link v-if="userId == null || userId == authUser.id" :to="{ name: 'settings' }" class="text-center float-right">
                     <font-awesome-icon icon="cog" />
                 </router-link>
             </div>
@@ -19,12 +19,28 @@
             </div>
         </div>
     </div>
+    <div class="col-12 mt-2">
+        photos
+    </div>
+    <div v-if="user.id != authUser.id" class="col-12 mt-2">
+        <div class="row actions">
+            <div class="col-6 text-center">
+                <router-link :to="{ name: 'new-dialog', params: { participantId:user.id }}" class="text-center">
+                    <font-awesome-icon icon="envelope" class="new-dialog"/>
+                </router-link>
+            </div>
+            <div class="col-6 text-center">
+                <div class="text-center" @click="like()">
+                    <font-awesome-icon icon="heart" class="like" />
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="col-12 mt-2">
-        <h5>Personal information</h5>
+        <h5 class="text-center">Personal information</h5>
 
-        <div v-for="info in user.information"
-                v-bind:item="info" :key="info.id">
+        <div v-for="info in user.information">
             <div class="row" v-if="info">
                 <div class="col-6 col-sm-3">
                     {{info.type}}:
@@ -56,26 +72,41 @@ export default {
         info() {
             return store.getters['dictionary/info'];
         },
+        authUser() {
+            return store.getters['auth/user']
+        },
         user() {
             return store.getters['user/user'];
         },
     },
     mounted() {
-        this.userId = this.$route.params.userId
+        this.getInformation();
     },
-    created() {
-        store.dispatch('user/getUser')
-        store.dispatch('dictionary/getInfo')
+    watch: {
+        '$route': 'getInformation',
     },
     methods: {
+        getInformation() {
+            this.userId = this.$route.params.userId
+
+            store.dispatch('user/getUser', this.userId)
+            store.dispatch('dictionary/getInfo')
+        },
         getInfoName: function(id) {
             return this.info.forEach(function(item) {
-                console.log(item);
                 if(id == item.id) {
-                    console.log(item.name);
                     return item.name;
                 }
             });
+        },
+        like() {
+            var data = {
+                user_id: this.userId
+            }
+            store.dispatch('likes/newLike', data)
+                .then(function(response) {
+
+                })
         }
     }
 }

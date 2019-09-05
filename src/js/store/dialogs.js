@@ -7,6 +7,10 @@ const module = {
         messages: []
     },
     mutations: {
+        CLEAR_DIALOG: (state) => {
+            state.dialog = {};
+            state.messages = [];
+        },
         DIALOGS_REQUEST: (state, dialogs) => {
             state.dialogs = dialogs;
         },
@@ -21,11 +25,29 @@ const module = {
         }
     },
     actions: {
+        clearDialog: ({commit, dispatch}) => {
+            return new Promise((resolve, reject) => {
+                commit('CLEAR_DIALOG')
+            })
+            .catch(err => {
+                reject(err)
+            })
+        },
         getDialogs: ({commit, dispatch}) => {
             return new Promise((resolve, reject) => {
                 axios.get('dialogs').then(resp => {
                     commit('DIALOGS_REQUEST', resp.data.data)
                     resolve(resp)
+                })
+                .catch(err => {
+                    reject(err)
+                })
+            })
+        },
+        newDialog: ({commit, dispatch}, params) => {
+            return new Promise((resolve, reject) => {
+                axios.post('dialogs', params).then(resp => {
+                    resolve(resp.data.data)
                 })
                 .catch(err => {
                     reject(err)

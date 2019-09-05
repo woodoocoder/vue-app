@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-       <message-form :dialogId="dialogId"/>
+       <message-form :dialogId="dialogId" :participants="participants"/>
     </div>
 </template>
 
@@ -41,7 +41,8 @@ export default {
     data() {
         return {
             baseURL: window.baseURL,
-            dialogId: null
+            dialogId: null,
+            participants: []
         }
     },
     components: {
@@ -58,27 +59,39 @@ export default {
             return store.getters['auth/user']
         }
     },
-    mounted () {
-        var _this = this;
-        this.dialogId = this.$route.params.dialogId
-        var data = {
-            dialogId: this.dialogId
-        }
-
-        store.dispatch('dialogs/getDialog', data);
-        store.dispatch('dialogs/getMessages', data)
-            .then(function(response) {
-                _this.firstLoad()
-            }).catch((error => {
-            }))
+    watch: {
+        '$route': 'lodadData',
+    },
+    mounted() {
+        this.lodadData()
     },
     methods: {
         isMyMessage(message) {
-            return (this.user.id == message.user_id)? true : false;
+            return (this.user.id == message.user.id)? true : false;
         },
         firstLoad() {
             var content = document.querySelector(".content")
             content.scrollTo(0, content.scrollHeight)
+        },
+        lodadData() {
+            var _this = this;
+            this.participants[0] = this.$route.params.participantId
+            this.dialogId = this.$route.params.dialogId
+
+            store.dispatch('dialogs/clearDialog')
+            if(this.dialogId) {
+                var data = {
+                    dialogId: this.dialogId
+                }
+
+                store.dispatch('dialogs/getDialog', data)
+                store.dispatch('dialogs/getMessages', data)
+                    .then(function(response) {
+                        _this.firstLoad()
+                    }).catch((error => {
+
+                    }))
+            }
         }
     }
 }

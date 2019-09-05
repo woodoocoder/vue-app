@@ -1,4 +1,7 @@
 
+// Fonts
+@import 'fonts';
+
 // Variables
 @import 'variables';
 
@@ -12,31 +15,45 @@ body {
     padding-top: 3rem;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3 {
     font-weight: bold;
+}
+h4, h5, h6 {
+    font-weight: 500;
+}
+a {
+    color: $primary;
+    text-decoration: none;
 }
 
 .navbar {
     padding: 0.1rem 0.5rem;
     
     a {
+        display: block;
         font-size: 1.5rem;
-    }
+        color: $white;
+        border-bottom: 2px solid transparent;
+        text-decoration: none;
 
-    .home-link {
-        margin-right: 2.5rem;
-    }
+        &.router-link-exact-active {
+            border-bottom: 2px solid $white;
+        }
 
-    .profile-link {
-        margin-right: -2.5rem;
-    }
-
-    .avatar {
-        height: 1.8rem;
-        width: auto;
-        border-radius: 1rem;
+        h5 {
+            line-height: 1.5rem;
+            margin: .2rem;
+        }
     }
 }
+
+.form-control {
+    height: calc(1em + 0.7rem + 2px);
+    padding: 0.1rem 0.7rem;
+    overflow: hidden;
+}
+
+
 .header {
     font-size: 1.2em;
     
@@ -61,12 +78,11 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
     margin-bottom: 1rem;
     min-height: 8rem;
-    overflow: hidden;
     border: 0;
     border-radius: 0.2rem;
-    -webkit-box-shadow: 0px 1px 3px -1px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 1px 3px -1px rgba(0,0,0,0.75);
-    box-shadow: 0px 1px 3px -1px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 1px 4px -1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 1px 4px -1px rgba(0,0,0,0.75);
+    box-shadow: 0px 1px 4px -1px rgba(0,0,0,0.75);
 
     &:hover {
         -webkit-box-shadow: 0px 1px 4px -1px rgba(0,0,0,0.75);
@@ -75,6 +91,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     .user-avatar {
+        overflow: hidden;
 
         .vue-avatar--wrapper {
             height:auto;
@@ -91,6 +108,13 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
+#login, #register {
+    &.card {
+        max-width: 400px;
+        margin: calc(50vh - 170px) auto 0;
+    }
+}
+
 #profile {
     .user-avatar {
         .vue-avatar--wrapper {
@@ -100,7 +124,33 @@ h1, h2, h3, h4, h5, h6 {
     .location {
         font-size: 0.8rem;
     }
+
+    .actions {
+        font-size: 1.8em;
+
+        .new-dialog {
+            color: $teal;
+        }
+        .like {
+            color: $red;
+        }
+    }
 }
+
+#likes {
+    .header {
+        a {
+            display: block;
+            border-bottom: 2px solid transparent;
+            text-decoration: none;
+    
+            &.router-link-exact-active {
+                border-bottom: 2px solid $primary;
+            }
+        }
+    }
+}
+
 
 @include media-breakpoint-down(xs) {
     #main-navbar {
@@ -240,7 +290,7 @@ h1, h2, h3, h4, h5, h6 {
         left: 0;
         right: 0;
         height: auto;
-        padding: 0.2rem;
+        padding: .5rem;
         background-color: #eee;
         z-index: 10000;
 
