@@ -5,7 +5,7 @@
             v-bind:item="item" :key="item.id" @click="openDialog(item.id)">
                 <div class="col-2">
                     <div v-if="item.latest_message">
-                        <avatar :user="item.latest_message.user" size="40" :rounded="true" />
+                        <avatar :user="dialogAvatar(item.participants)" size="40" :rounded="true" />
                     </div>
                 </div>
                 <div class="col-10">
@@ -45,7 +45,10 @@ export default {
     computed: {
         dialogs() {
             return store.getters['dialogs/dialogs']
-        }
+        },
+        authUser() {
+            return store.getters['auth/user']
+        },
     },
     created () {
         store.dispatch('dialogs/getDialogs');
@@ -54,6 +57,14 @@ export default {
         openDialog(dialogId) {
             this.$router.push({ name: 'dialog', params: { dialogId:dialogId } })
         },
+        dialogAvatar(participants) {
+            var _this = this;
+            var participant = participants.filter(function(item) {
+                return item.user.id != _this.authUser.id
+            });
+            
+            return participant[0].user;
+        }
     }
 }
 </script>

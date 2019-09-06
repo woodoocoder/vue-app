@@ -45,6 +45,7 @@ export default {
     methods: {
         send() {
             var _this = this;
+            this.message.dialog_id = this.dialogId
             var data = this.message;
 
             if(data.message == '') {
