@@ -61,6 +61,9 @@ export default {
     },
     watch: {
         '$route': 'lodadData',
+        messages: function(val) {
+            setTimeout(() => this.scrollBottom(), 100)
+        },
     },
     mounted() {
         this.lodadData()
@@ -69,7 +72,7 @@ export default {
         isMyMessage(message) {
             return (this.user.id == message.user.id)? true : false;
         },
-        firstLoad() {
+        scrollBottom() {
             var content = document.querySelector(".content")
             content.scrollTo(0, content.scrollHeight)
         },
@@ -87,7 +90,7 @@ export default {
                 store.dispatch('dialogs/getDialog', data)
                 store.dispatch('dialogs/getMessages', data)
                     .then(function(response) {
-                        _this.firstLoad()
+                        _this.scrollBottom()
                     }).catch((error => {
 
                     }))
