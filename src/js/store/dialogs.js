@@ -1,3 +1,4 @@
+import Vue from 'vue'
 
 const module = {
     namespaced: true,
@@ -17,20 +18,38 @@ const module = {
         DIALOG_REQUEST: (state, dialog) => {
             state.dialog = dialog;
         },
+        NEW_DIALOG: (state, dialog) => {
+            var exist = false;
+            state.dialogs.forEach(function(item, i) {
+                if(item.id === dialog.id) {
+                    Vue.set(state.dialogs, i, dialog);
+                    exist = true;
+                }
+            })
+            if(!exist) {
+                state.dialogs.unshift(dialog);
+            }
+        },
         MESSAGES_REQUEST: (state, messages) => {
             state.messages = messages.reverse();
         },
         NEW_MESSAGE_REQUEST: (state, message) => {
             var exist = false;
-            state.messages.forEach(function(item) {
+            state.messages.forEach(function(item, i) {
                 if(item.id === message.id) {
-                    item = message
+                    Vue.set(state.messages, i, message);
                     exist = true;
                 }
             })
             if(!exist) {
                 state.messages.push(message);
             }
+
+            state.dialogs.forEach(function(item, i) {
+                if(item.id === message.dialog_id) {
+                    state.dialogs[i].latest_message = message
+                }
+            })
         }
     },
     actions: {
@@ -42,7 +61,16 @@ const module = {
                 reject(err)
             })
         },
-        getDialogs: ({commit, state}) => {
+        getDialogs: ({commit, state}, user) => {
+            var channelName = 'dialogs.'+user.id;
+
+            if (state.dialogs.length > 0) {
+                Echo.leave(channelName);
+            }
+            window.Echo.private(channelName).listen('.new-dialog', (e) => {
+                commit('NEW_DIALOG', e.data)
+            });
+
             return new Promise((resolve, reject) => {
                 axios.get('dialogs').then(resp => {
                     commit('DIALOGS_REQUEST', resp.data.data)

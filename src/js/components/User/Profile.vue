@@ -1,5 +1,5 @@
 <template>
-<div id="profile" class="row">
+<div id="profile" v-if="user" class="row">
 
     <div class="col-3">
         <avatar :user="user" size="60" :rounded="true" />
@@ -25,7 +25,7 @@
     <div v-if="user.id != authUser.id" class="col-12 mt-2">
         <div class="row actions">
             <div class="col-6 text-center">
-                <router-link :to="{ name: 'new-dialog', params: { participantId:user.id }}" class="text-center">
+                <router-link :to="{ name: 'new-dialog', params: { participantId: user.id }}" class="text-center">
                     <font-awesome-icon icon="envelope" class="new-dialog"/>
                 </router-link>
             </div>
@@ -79,9 +79,6 @@ export default {
             return store.getters['user/user'];
         },
     },
-    mounted() {
-        this.getInformation();
-    },
     watch: {
         '$route': 'getInformation',
     },
@@ -108,6 +105,9 @@ export default {
 
                 })
         }
-    }
+    },
+    beforeMount () {
+        this.getInformation();
+    },
 }
 </script>

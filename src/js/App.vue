@@ -47,14 +47,17 @@
 </template>
 
 <script>
-
 import store from './store'
+
+import {Howl, Howler} from 'howler';
+Howler.autoUnlock = true;
 
 export default {
     data() {
         return {
             baseURL: window.baseURL,
-            scrollY: 0
+            scrollY: 0,
+            sound: false
         }
     },
     computed: {
@@ -63,13 +66,24 @@ export default {
         },
         user() {
             return store.getters['auth/user']
-        }
+        },
+        dialogs() {
+            return store.getters['dialogs/dialogs']
+        },
+        dialog() {
+            return store.getters['dialogs/dialog']
+        },
     },
     watch: {
         '$route': 'routeChanged',
         'scrollY': function(from, to) {
             //console.log(from+' '+to);
-        }
+        },
+        dialogs: function(val) {
+            if(Object.keys(this.dialog).length === 0) {
+                this.newDialog()
+            }
+        },
     },
     methods: {
         routeChanged() {
@@ -77,11 +91,38 @@ export default {
         },
         handleScroll() {
             this.scrollY = window.scrollY;
+        },
+        newDialog() {
+            var _this = this;
+            
+            if(!this.sound) {
+                this.sound = new Howl({
+                    src: ['./accomplished.mp3'],
+                    html5: true,
+                    preload: true,
+                    volume: .7,
+                    onplayerror: function() {
+                        _this.sound.once('unlock', function() {
+                            _this.sound.play();
+                        });
+                    }
+                });
+            }
+            else {
+                this.sound.play();
+            }
         }
     },
     created () {
+        var _this = this;
         if(this.isAuthenticated) {
-            store.dispatch('auth/getUser');
+            store.dispatch('auth/getUser')
+                .then(function(response) {
+                    store.dispatch('dialogs/getDialogs', _this.user)
+                        .then(function(response) {
+                            
+                        })
+                })
         }
     },
     beforeMount () {

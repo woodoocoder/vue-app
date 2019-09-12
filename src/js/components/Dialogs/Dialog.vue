@@ -1,13 +1,18 @@
 <template>
     <div class="messages">
         <div class="row header">
-            <div class="col-2 text-center">
+            <div class="col-2 text-center" >
                 <router-link :to="{ name: 'dialogs' }" class="back-link">
                     <font-awesome-icon icon="chevron-left" />
                 </router-link>
             </div>
             <div class="col-8 text-center subject">
-                {{ dialog.subject }}
+                <div v-if="dialog.participants">
+                    {{firstParticipant(dialog.participants).firstname}}
+                </div>
+                <div v-else="">
+                    New Dialog
+                </div>
             </div>
             <div class="col-2 text-center">
                 <router-link :to="{ name: 'dialogs' }" class="info-link">
@@ -55,14 +60,16 @@ export default {
         messages() {
             return store.getters['dialogs/messages']
         },
-        user() {
+        authUser() {
             return store.getters['auth/user']
         }
     },
     watch: {
         '$route': 'lodadData',
         messages: function(val) {
-            setTimeout(() => this.scrollBottom(), 100)
+            if(Object.keys(val).length !== 0) {
+                setTimeout(() => this.scrollBottom(), 200)
+            }
         },
     },
     mounted() {
@@ -70,7 +77,7 @@ export default {
     },
     methods: {
         isMyMessage(message) {
-            return (this.user.id == message.user.id)? true : false;
+            return (this.authUser.id == message.user.id)? true : false;
         },
         scrollBottom() {
             var content = document.querySelector(".content")
@@ -95,7 +102,21 @@ export default {
 
                     }))
             }
+        },
+        firstParticipant(participants) {
+            var _this = this;
+            
+            if(participants) {
+                var participant = participants.filter(function(item) {
+                    return item.user.id != _this.authUser.id
+                });
+                
+                return participant[0].user;
+            }
         }
+    },
+    afterDestroy() {
+        store.dispatch('dialogs/clearDialog')
     }
 }
 </script>

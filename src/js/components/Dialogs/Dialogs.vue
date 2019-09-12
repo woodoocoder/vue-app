@@ -5,15 +5,17 @@
             v-bind:item="item" :key="item.id" @click="openDialog(item.id)">
                 <div class="col-2">
                     <div v-if="item.latest_message">
-                        <avatar :user="dialogAvatar(item.participants)" size="40" :rounded="true" />
+                        <avatar :user="firstParticipant(item.participants)" size="40" :rounded="true" />
                     </div>
                 </div>
                 <div class="col-10">
                     <div class="row">
-                        <div class="col-8 subject" v-text="item.subject"></div>
+                        <div class="col-8 subject">
+                            {{firstParticipant(item.participants).firstname}}
+                        </div>
                         <div class="col-4">
                             <span class="date text-light float-right">
-                                {{ item.created_at | moment("DD.MM.YY") }}
+                                {{ item.updated_at | moment("DD.MM H:mm") }}
                             </span>
                         </div>
                     </div>
@@ -50,14 +52,11 @@ export default {
             return store.getters['auth/user']
         },
     },
-    created () {
-        store.dispatch('dialogs/getDialogs');
-    },
     methods: {
         openDialog(dialogId) {
             this.$router.push({ name: 'dialog', params: { dialogId:dialogId } })
         },
-        dialogAvatar(participants) {
+        firstParticipant(participants) {
             var _this = this;
             var participant = participants.filter(function(item) {
                 return item.user.id != _this.authUser.id

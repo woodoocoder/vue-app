@@ -160,7 +160,7 @@ a {
 
     body {
         padding-top: 0.5rem;
-        padding-bottom: 3rem;
+        padding-bottom: 2rem;
     }
 
     .card .card-img-top {
@@ -207,6 +207,7 @@ a {
         margin-top: 5vh;
         padding-bottom: 3vh;
         overflow-y: auto;
+        overflow-x: hidden;
 
         .message {
             .body {
