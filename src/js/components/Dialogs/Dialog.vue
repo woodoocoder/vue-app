@@ -1,5 +1,5 @@
 <template>
-    <div class="messages">
+    <div v-if="Object.keys(dialog).length !== 0 || !dialogId" class="messages">
         <div class="row header">
             <div class="col-2 text-center" >
                 <router-link :to="{ name: 'dialogs' }" class="back-link">
@@ -14,10 +14,8 @@
                     New Dialog
                 </div>
             </div>
-            <div class="col-2 text-center">
-                <router-link :to="{ name: 'dialogs' }" class="info-link">
-                    <font-awesome-icon icon="info-circle" />
-                </router-link>
+            <div v-if="dialog.participants" @click="openInfo" class="col-2 text-center">
+                <font-awesome-icon icon="info-circle" />
             </div>
         </div>
         <div class="container content">
@@ -47,7 +45,8 @@ export default {
         return {
             baseURL: window.baseURL,
             dialogId: null,
-            participants: []
+            participants: [],
+            infoOpened: false
         }
     },
     components: {
@@ -113,6 +112,9 @@ export default {
                 
                 return participant[0].user;
             }
+        },
+        openInfo() {
+            this.infoOpened = !this.infoOpened;
         }
     },
     afterDestroy() {

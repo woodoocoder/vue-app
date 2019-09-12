@@ -1,5 +1,5 @@
 <template>
-<div id="profile" v-if="user" class="row">
+<div v-if="Object.keys(user).length !== 0" id="profile" class="row">
 
     <div class="col-3">
         <avatar :user="user" size="60" :rounded="true" />
