@@ -6,11 +6,7 @@ const module = {
         dialogs: [],
         dialog: {},
         messages: [],
-        unreadDialogs: [
-            {id: 29, unread_messages: 2},
-            {id: 30, unread_messages: 3},
-            {id: 20, unread_messages: 6},
-        ]
+        unreadDialogs: []
     },
     mutations: {
         CLEAR_DIALOG: (state) => {
@@ -34,6 +30,35 @@ const module = {
             if(!exist) {
                 state.dialogs.unshift(dialog);
             }
+        },
+        UNREAD_DIALOGS: (state, dialogs) => {
+            state.unreadDialogs.forEach(function(item, i) {
+                dialogs.forEach(function(newItem, j) {
+                    if(newItem.id === item.id) {
+                        if(newItem.unread_messages > 0) {
+                            var data = {
+                                id: newItem.id,
+                                unread_messages: newItem.unread_messages
+                            }
+                            Vue.set(state.unreadDialogs, i, data);
+                            dialogs.splice(dialogs.indexOf(newItem), 1);
+                        }
+                        else {
+                            state.unreadDialogs.splice(state.unreadDialogs.indexOf(item), 1);
+                        }
+                    }
+                })
+            })
+
+            dialogs.forEach(function(newItem, i) {
+                if(newItem.unread_messages > 0) {
+                    var data = {
+                        id: newItem.id,
+                        unread_messages: newItem.unread_messages
+                    }
+                    state.unreadDialogs.push(data);
+                }
+            })
         },
         MESSAGES_REQUEST: (state, messages) => {
             state.messages = messages.reverse();
@@ -74,11 +99,13 @@ const module = {
             }
             window.Echo.private(channelName).listen('.new-dialog', (e) => {
                 commit('NEW_DIALOG', e.data)
+                commit('UNREAD_DIALOGS', [e.data])
             });
 
             return new Promise((resolve, reject) => {
                 axios.get('dialogs').then(resp => {
                     commit('DIALOGS_REQUEST', resp.data.data)
+                    commit('UNREAD_DIALOGS', resp.data.data)
                     resolve(resp)
                 })
                 .catch(err => {
