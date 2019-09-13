@@ -13,11 +13,17 @@
                             <router-link :to="{ name: 'likes' }" class="text-center">
                                 <font-awesome-icon icon="heart" />
                             </router-link>
+                            <span v-if="unreadLikes > 0" class="counter">
+                                {{unreadLikes}}
+                            </span>
                         </div>
                         <div class="col-3 text-center">
                             <router-link :to="{ name: 'dialogs' }" class="text-center">
                                 <font-awesome-icon icon="envelope" />
                             </router-link>
+                            <span v-if="unreadDialogs > 0" class="counter">
+                                {{unreadDialogs}}
+                            </span>
                         </div>
                         <div class="col-3 text-center">
                             <router-link :to="{ name: 'profile' }" class="text-center profile-link">
@@ -72,6 +78,14 @@ export default {
         },
         dialog() {
             return store.getters['dialogs/dialog']
+        },
+        unreadDialogs() {
+            var unreadDialogs = store.getters['dialogs/unreadDialogs']
+            return unreadDialogs.length<100?unreadDialogs.length:'99+';
+        },
+        unreadLikes() {
+            var unreadLikes = store.getters['likes/unreadLikes']
+            return unreadLikes.length<100?unreadLikes.length:'99+';
         },
     },
     watch: {

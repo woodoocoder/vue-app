@@ -15,7 +15,7 @@
                         </div>
                         <div class="col-4">
                             <span class="date text-light float-right">
-                                {{ item.updated_at | moment("DD.MM H:mm") }}
+                                {{ item.updated_at | moment("MM.DD H:mm") }}
                             </span>
                         </div>
                     </div>
@@ -23,6 +23,10 @@
                         <div class="col-12">
                             <div v-if="item.latest_message">
                                 {{item.latest_message.message}}
+
+                                <span v-if="countUnread(item) > 0" class="counter float-right">
+                                    {{countUnread(item)}}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -51,6 +55,9 @@ export default {
         authUser() {
             return store.getters['auth/user']
         },
+        unreadDialogs() {
+            return store.getters['dialogs/unreadDialogs']
+        },
     },
     methods: {
         openDialog(dialogId) {
@@ -63,6 +70,14 @@ export default {
             });
             
             return participant[0].user;
+        },
+        countUnread(dialog) {
+            for(let i=0; i<this.unreadDialogs.length; i++) {
+                if(dialog.id === this.unreadDialogs[i].id) {
+                    return this.unreadDialogs[i].unread_messages
+                }
+            }
+            return 0;
         }
     }
 }

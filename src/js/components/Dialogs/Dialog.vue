@@ -26,7 +26,7 @@
                     <div :class="isMyMessage(item)?'body right':'body left'">
                         <div v-text="item.message"></div>
                         <span class="date">
-                            {{ item.created_at | moment("DD.MM.YY") }}
+                            {{ item.created_at | moment("MM.DD H:mm") }}
                         </span>
                     </div>
                 </div>

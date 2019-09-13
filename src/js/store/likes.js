@@ -2,7 +2,8 @@
 const module = {
     namespaced: true,
     state: {
-        likes: []
+        likes: [],
+        unreadLikes: []
     },
     mutations: {
         LIKES_REQUEST: (state, likes) => {
@@ -37,6 +38,7 @@ const module = {
     },
     getters: {
         likes: state => state.likes,
+        unreadLikes: state => state.unreadLikes,
     }
 }
   

@@ -5,7 +5,12 @@ const module = {
     state: {
         dialogs: [],
         dialog: {},
-        messages: []
+        messages: [],
+        unreadDialogs: [
+            {id: 29, unread_messages: 2},
+            {id: 30, unread_messages: 3},
+            {id: 20, unread_messages: 6},
+        ]
     },
     mutations: {
         CLEAR_DIALOG: (state) => {
@@ -138,6 +143,7 @@ const module = {
         dialogs: state => state.dialogs,
         dialog: state => state.dialog,
         messages: state => state.messages,
+        unreadDialogs: state => state.unreadDialogs,
     }
 }
   
