@@ -10,7 +10,7 @@
                             </router-link>
                         </div>
                         <div class="col-3 text-center">
-                            <router-link :to="{ name: 'likes' }" class="text-center">
+                            <router-link :to="{ name: 'likes', params: {page:'liked'}}" class="text-center">
                                 <font-awesome-icon icon="heart" />
                             </router-link>
                             <span v-if="unreadLikes > 0" class="counter">
@@ -83,9 +83,12 @@ export default {
             var unreadDialogs = store.getters['dialogs/unreadDialogs']
             return unreadDialogs.length<100?unreadDialogs.length:'99+';
         },
+        likes() {
+            return store.getters['likes/likes']
+        },
         unreadLikes() {
-            var unreadLikes = store.getters['likes/unreadLikes']
-            return unreadLikes.length<100?unreadLikes.length:'99+';
+            var unreadCount = store.getters['likes/unreadCount']
+            return unreadCount<100?unreadCount:'99+';
         },
     },
     watch: {
@@ -95,7 +98,12 @@ export default {
         },
         dialogs: function(val) {
             if(Object.keys(this.dialog).length === 0) {
-                this.newDialog()
+                this.playSound()
+            }
+        },
+        unreadLikes: function(val) {
+            if(Object.keys(this.unreadLikes).length === 0) {
+                this.playSound()
             }
         },
     },
@@ -106,7 +114,7 @@ export default {
         handleScroll() {
             this.scrollY = window.scrollY;
         },
-        newDialog() {
+        playSound() {
             var _this = this;
             
             if(!this.sound) {
@@ -133,9 +141,7 @@ export default {
             store.dispatch('auth/getUser')
                 .then(function(response) {
                     store.dispatch('dialogs/getDialogs', _this.user)
-                        .then(function(response) {
-                            
-                        })
+                    store.dispatch('likes/getLikes', _this.user)
                 })
         }
     },

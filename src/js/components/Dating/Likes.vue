@@ -4,14 +4,14 @@
             <div class="row header">
                 <div class="col-6 text-center">
                     <h6>
-                        <router-link :to="{ name: 'matched' }" class="text-center">
+                        <router-link :to="{ name: 'likes', params: {page:'matched'}}" class="text-center">
                             Matched
                         </router-link>
                     </h6>
                 </div>
                 <div class="col-6 text-center">
                     <h6>
-                        <router-link :to="{ name: 'likes' }" class="text-center">
+                        <router-link :to="{ name: 'likes', params: {page:'liked'}}" class="text-center">
                             Liked
                         </router-link>
                     </h6>
@@ -23,7 +23,7 @@
                 <div v-for="item in users"
                     v-bind:item="item" :key="item.id"
                     class="col-6 col-md-4 col-lg-3" @click="openProfile(item.id)">
-                        <user-card :user="item" />
+                        <user-card :user="item.user" />
                 </div>
             </div>
         </div>
@@ -41,6 +41,7 @@ export default {
     },
     data() {
         return {
+            page: 'likes',
             window: {
                 width: 0,
                 height: 0
@@ -49,11 +50,22 @@ export default {
     },
     computed: {
         users() {
-            return store.getters['dating/users']
+            if(this.page === 'matched') {
+                return store.getters['likes/matched']
+            }
+            else {
+                return store.getters['likes/likes']
+            }
+        },
+        user() {
+            return store.getters['auth/user']
         },
     },
+    watch: {
+        '$route': 'routeChanged',
+    },
     mounted() {
-        store.dispatch('dating/getUsers')
+        this.routeChanged();
     },
     created() {
         window.addEventListener('resize', this.handleResize)
@@ -63,6 +75,17 @@ export default {
         window.removeEventListener('resize', this.handleResize)
     },
     methods: {
+        routeChanged() {
+            this.page = this.$route.params.page
+
+            if(this.page === 'matched') {
+                store.dispatch('likes/getMatched')
+            }
+            else {
+                store.dispatch('likes/getLikes', this.user)
+            }
+            
+        },
         openProfile(userId) {
             this.$router.push({ name: 'view-profile', params: { userId:userId } })
         },

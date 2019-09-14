@@ -61,11 +61,7 @@ export default {
         beforeEnter: ifAuthenticated,
     },
     {
-        path: '/likes', name: 'likes', component: Likes,
-        beforeEnter: ifAuthenticated,
-    },
-    {
-        path: '/likes/matched', name: 'matched', component: Likes,
+        path: '/likes/:page', name: 'likes', component: Likes,
         beforeEnter: ifAuthenticated,
     },
   ]
