@@ -66,8 +66,12 @@ export default {
     watch: {
         '$route': 'lodadData',
         messages: function(val) {
+            var _this = this;
             if(Object.keys(val).length !== 0) {
-                setTimeout(() => this.scrollBottom(), 200)
+                setTimeout(function() {
+                    _this.scrollBottom()
+                    store.dispatch('dialogs/clearUnread', _this.dialogId)
+                }, 200)
             }
         },
     },
@@ -95,11 +99,6 @@ export default {
 
                 store.dispatch('dialogs/getDialog', data)
                 store.dispatch('dialogs/getMessages', data)
-                    .then(function(response) {
-                        _this.scrollBottom()
-                    }).catch((error => {
-
-                    }))
             }
         },
         firstParticipant(participants) {
@@ -117,7 +116,7 @@ export default {
             this.infoOpened = !this.infoOpened;
         }
     },
-    afterDestroy() {
+    beforeDestroy () {
         store.dispatch('dialogs/clearDialog')
     }
 }

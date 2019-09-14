@@ -49,7 +49,7 @@ const module = {
                     }
                 })
             })
-
+            
             dialogs.forEach(function(newItem, i) {
                 if(newItem.unread_messages > 0) {
                     var data = {
@@ -91,6 +91,13 @@ const module = {
                 reject(err)
             })
         },
+        clearUnread: ({commit, state}, dialogId) => {
+            var data = {
+                id: dialogId,
+                unread_messages: 0
+            }
+            commit('UNREAD_DIALOGS', [data])
+        },
         getDialogs: ({commit, state}, user) => {
             var channelName = 'dialogs.'+user.id;
 
@@ -131,11 +138,13 @@ const module = {
             }
             Echo.private(channelName).listen('.new-message', (e) => {
                 commit('NEW_MESSAGE_REQUEST', e.data)
+                commit('UNREAD_DIALOGS', [e.data])
             });
 
             return new Promise((resolve, reject) => {
                 axios.get('dialogs/'+params.dialogId).then(resp => {
                     commit('DIALOG_REQUEST', resp.data.data)
+                    commit('UNREAD_DIALOGS', [resp.data.data])
                     resolve(resp)
                 })
                 .catch(err => {

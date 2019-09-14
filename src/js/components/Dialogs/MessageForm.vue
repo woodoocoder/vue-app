@@ -35,6 +35,20 @@ export default {
             }
         }
     },
+    watch: {
+        'message.message': function (val, oldVal) {
+            /*
+            if(this.message.dialog_id != null) {
+                var channelName = 'dialog_id.' + this.message.dialog_id;
+                
+                Echo.private(channelName)
+                    .whisper('typing', {
+                        message: this.message.message
+                    });
+            }
+            */
+        }
+    },
     mounted() {
         this.message.dialog_id = this.dialogId
         this.message.participants = this.participants
