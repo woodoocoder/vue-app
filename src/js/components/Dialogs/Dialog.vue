@@ -31,6 +31,11 @@
                     </div>
                 </div>
             </div>
+
+
+            <div v-if="lastTyping" :class="isTyping">
+                typing...
+            </div>
         </div>
        <message-form :dialogId="dialogId" :participants="participants"/>
     </div>
@@ -46,7 +51,9 @@ export default {
             baseURL: window.baseURL,
             dialogId: null,
             participants: [],
-            infoOpened: false
+            infoOpened: false,
+            lastTyping: null,
+            timer: null,
         }
     },
     components: {
@@ -59,8 +66,20 @@ export default {
         messages() {
             return store.getters['dialogs/messages']
         },
+        dialogChannel() {
+            return store.getters['dialogs/dialogChannel']
+        },
         authUser() {
             return store.getters['auth/user']
+        },
+        isTyping() {
+
+            if(!this.lastTyping || new Date().getTime() - this.lastTyping > 3000) {
+                return 'typing-block d-none';
+            }
+            else {
+                return 'typing-block d-block';
+            }
         }
     },
     watch: {
@@ -76,7 +95,24 @@ export default {
         },
     },
     mounted() {
+        var _this = this;
         this.lodadData()
+
+        if(this.dialogChannel) {
+            this.dialogChannel.listen('.client-message-typing', (e) => {
+                this.lastTyping = new Date().getTime();
+
+                if(!this.timer) {
+                    this.timer = setInterval(function() {
+                        if(this.lastTyping || new Date().getTime() - _this.lastTyping > 3000) {
+                            clearInterval(_this.timer)
+                            _this.timer = null
+                            _this.lastTyping = null
+                        }
+                    }, 1000)
+                }
+            });
+        }
     },
     methods: {
         isMyMessage(message) {

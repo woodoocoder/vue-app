@@ -35,18 +35,24 @@ export default {
             }
         }
     },
+    computed: {
+        dialogChannel() {
+            return store.getters['dialogs/dialogChannel']
+        },
+        authUser() {
+            return store.getters['auth/user']
+        }
+    },
     watch: {
         'message.message': function (val, oldVal) {
-            /*
-            if(this.message.dialog_id != null) {
-                var channelName = 'dialog_id.' + this.message.dialog_id;
-                
-                Echo.private(channelName)
-                    .whisper('typing', {
-                        message: this.message.message
-                    });
+            if(this.message.dialog_id != null && this.dialogChannel) {
+                this.dialogChannel.whisper('message-typing', {
+                    data: {
+                        message: this.message.message,
+                        user: this.authUser
+                    }
+                });
             }
-            */
         }
     },
     mounted() {

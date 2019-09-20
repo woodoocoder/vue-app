@@ -228,6 +228,13 @@ a {
         overflow-y: auto;
         overflow-x: hidden;
 
+        .typing-block {
+            position: absolute;
+            bottom: 3rem;
+            left: .2rem;
+            color: #717171;
+        }
+
         .message {
             .body {
                 position: relative;
@@ -235,7 +242,7 @@ a {
                 margin-bottom: 0.2rem;
                 padding: 0.7rem 0.85rem;
                 max-width: 70vw;
-                min-width: 20vw;
+                min-width: 30vw;
                 min-height: 50px;
                 border-radius: 10px;
                 border: 1px solid $message-border;

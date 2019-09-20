@@ -5,6 +5,7 @@ const module = {
     state: {
         dialogs: [],
         dialog: {},
+        dialogChannel: null,
         messages: [],
         unreadDialogs: []
     },
@@ -133,13 +134,17 @@ const module = {
         getDialog: ({commit, state}, params) => {
             var channelName = 'dialog_id.' + params.dialogId;
 
+
             if (state.dialog != {}) {
                 Echo.leave(channelName);
+                state.dialogChannel = null;
             }
-            Echo.private(channelName).listen('.new-message', (e) => {
-                commit('NEW_MESSAGE_REQUEST', e.data)
-                commit('UNREAD_DIALOGS', [e.data])
-            });
+            state.dialogChannel = Echo.private(channelName);
+
+            state.dialogChannel.listen('.new-message', (e) => {
+                    commit('NEW_MESSAGE_REQUEST', e.data)
+                    commit('UNREAD_DIALOGS', [e.data])
+                });
 
             return new Promise((resolve, reject) => {
                 axios.get('dialogs/'+params.dialogId).then(resp => {
@@ -178,6 +183,7 @@ const module = {
     getters: {
         dialogs: state => state.dialogs,
         dialog: state => state.dialog,
+        dialogChannel: state => state.dialogChannel,
         messages: state => state.messages,
         unreadDialogs: state => state.unreadDialogs,
     }
