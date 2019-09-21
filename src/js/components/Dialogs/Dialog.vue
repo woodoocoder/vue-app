@@ -94,7 +94,7 @@ export default {
             }
         },
     },
-    mounted() {
+    created() {
         var _this = this;
         this.lodadData()
 

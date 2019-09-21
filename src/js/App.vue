@@ -2,51 +2,56 @@
     <div>
         <div class="container-fluid">
             <div id="main-navbar" class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
-                <div class="col-12">
-                    <div v-if="isAuthenticated" class="row">
-                        <div class="col-3 text-center">
-                            <router-link :to="{ name: 'home' }" class="text-center home-link">
-                                <font-awesome-icon icon="users" />
-                            </router-link>
+                <div class="d-none d-sm-block col-sm-5 col-md-6">
+
+                </div>
+                <div class="col-12 col-sm-7 col-md-6">
+                    <div class="container">
+                        <div v-if="isAuthenticated" class="row">
+                            <div class="col-3 text-center">
+                                <router-link :to="{ name: 'home' }" class="text-center home-link">
+                                    <font-awesome-icon icon="users" />
+                                </router-link>
+                            </div>
+                            <div class="col-3 text-center">
+                                <router-link :to="{ name: 'likes', params: {page:'liked'}}" class="text-center">
+                                    <font-awesome-icon icon="heart" />
+                                </router-link>
+                                <span v-if="unreadLikes > 0" class="counter">
+                                    {{unreadLikes}}
+                                </span>
+                            </div>
+                            <div class="col-3 text-center">
+                                <router-link :to="{ name: 'dialogs' }" class="text-center">
+                                    <font-awesome-icon icon="envelope" />
+                                </router-link>
+                                <span v-if="unreadDialogs > 0" class="counter">
+                                    {{unreadDialogs}}
+                                </span>
+                            </div>
+                            <div class="col-3 text-center">
+                                <router-link :to="{ name: 'profile' }" class="text-center profile-link">
+                                    <font-awesome-icon icon="user" />
+                                </router-link>
+                            </div>
                         </div>
-                        <div class="col-3 text-center">
-                            <router-link :to="{ name: 'likes', params: {page:'liked'}}" class="text-center">
-                                <font-awesome-icon icon="heart" />
-                            </router-link>
-                            <span v-if="unreadLikes > 0" class="counter">
-                                {{unreadLikes}}
-                            </span>
-                        </div>
-                        <div class="col-3 text-center">
-                            <router-link :to="{ name: 'dialogs' }" class="text-center">
-                                <font-awesome-icon icon="envelope" />
-                            </router-link>
-                            <span v-if="unreadDialogs > 0" class="counter">
-                                {{unreadDialogs}}
-                            </span>
-                        </div>
-                        <div class="col-3 text-center">
-                            <router-link :to="{ name: 'profile' }" class="text-center profile-link">
-                                <font-awesome-icon icon="user" />
-                            </router-link>
-                        </div>
-                    </div>
-                    <div v-else="" class="row">
-                        <div class="col-6 text-center">
-                            <router-link :to="{ name: 'login' }" class="text-center">
-                                <h5>Login</h5>
-                            </router-link>
-                        </div>
-                        <div class="col-6 text-center">
-                            <router-link :to="{ name: 'register' }" class="text-center">
-                                <h5>Register</h5>
-                            </router-link>
+                        <div v-else="" class="row">
+                            <div class="col-6 text-center">
+                                <router-link :to="{ name: 'login' }" class="text-center">
+                                    <h5>Login</h5>
+                                </router-link>
+                            </div>
+                            <div class="col-6 text-center">
+                                <router-link :to="{ name: 'register' }" class="text-center">
+                                    <h5>Register</h5>
+                                </router-link>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="container-fluid">
+        <div class="container">
             <router-view></router-view>
         </div>
     </div>

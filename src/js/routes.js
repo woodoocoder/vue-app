@@ -6,7 +6,7 @@ import Register from './components/Auth/Register.vue';
 import Profile from './components/User/Profile.vue';
 import Settings from './components/User/Settings.vue';
 
-import Dialogs from './components/Dialogs/Dialogs.vue';
+import Dialogs from './components/Dialogs/App.vue';
 import Dialog from './components/Dialogs/Dialog.vue';
 
 import Likes from './components/Dating/Likes.vue';
@@ -53,7 +53,7 @@ export default {
         beforeEnter: ifAuthenticated,
     },
     {
-        path: '/dialog/:dialogId', name: 'dialog', component: Dialog,
+        path: '/dialog/:dialogId', name: 'dialog', component: Dialogs,
         beforeEnter: ifAuthenticated,
     },
     {

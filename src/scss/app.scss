@@ -10,6 +10,12 @@
 
 @import 'nouislider';
 
+@media (max-width: 992px) {
+    .container {
+        width: 100%;
+        max-width: 100%;
+    }
+ }
 
 body {
     padding-top: 3rem;
@@ -211,9 +217,9 @@ a {
         top: 0;
         left: 0;
         right: 0;
-        height: 1.5em;
+        height: .8rem;
         padding-top: 0.8vh;
-        z-index: 10000;
+        z-index: 1000;
         background: #fff;
 
         .subject {
@@ -223,8 +229,8 @@ a {
 
     .content {
         height: 87vh;
-        margin-top: 5vh;
-        padding-bottom: 3vh;
+        margin-top: 2rem;
+        padding-bottom: 2rem;
         overflow-y: auto;
         overflow-x: hidden;
 
@@ -242,7 +248,7 @@ a {
                 margin-bottom: 0.2rem;
                 padding: 0.7rem 0.85rem;
                 max-width: 70vw;
-                min-width: 30vw;
+                min-width: 100px;
                 min-height: 50px;
                 border-radius: 10px;
                 border: 1px solid $message-border;
