@@ -36,8 +36,10 @@
             <div v-if="lastTyping" :class="isTyping">
                 typing...
             </div>
+
+            <message-form :dialogId="dialogId" :participants="participants"/>
+            
         </div>
-       <message-form :dialogId="dialogId" :participants="participants"/>
     </div>
 </template>
 

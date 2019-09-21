@@ -18,7 +18,7 @@
  }
 
 body {
-    padding-top: 3rem;
+    padding-top: 2.6rem;
 }
 
 h1, h2, h3 {
@@ -194,23 +194,50 @@ a {
 }
 
 
-.dialogs {
-    .dialog {
-        margin-top: 0.3rem;
-        padding-bottom: 0.3rem;
-        border-bottom: 1px solid #eee;
+#dialogs-app {
+    position: relative;
+    height: calc(100vh - 2.6rem);
+    margin: 0 -10px;
+    overflow: hidden;
 
-        .subject {
-            font-weight: bold;
-        }
+    .dialogs {
+        position: absolute;
+        top: 0;
+        right: -10px;
+        bottom: 0;
+        left: 20px;
+        padding-right: 10px;
+        padding-bottom: 2.6rem;
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
 
-        .date {
-            font-size: 0.8rem;
+        .dialog {
+            margin-top: 0.3rem;
+            padding-bottom: 0.3rem;
+            border-bottom: 1px solid #eee;
+
+            .subject {
+                font-weight: bold;
+            }
+
+            .date {
+                font-size: 0.8rem;
+            }
         }
     }
 }
 
+
 .messages {
+    height: 100%;
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 0;
+    top: 0;
+    padding-bottom: 3rem;
+
     .header {
         font-size: 1.2em;
         position: fixed;
@@ -228,9 +255,8 @@ a {
     }
 
     .content {
-        height: 87vh;
+        height: calc(100% - 3.6rem);
         margin-top: 2rem;
-        padding-bottom: 2rem;
         overflow-y: auto;
         overflow-x: hidden;
 
@@ -350,20 +376,39 @@ a {
     }
 }
 
-@include media-breakpoint-up(sm) {
-    .messages {
-        .header {
-            position: relative;
+
+@include media-breakpoint-down(xs) {
+    #dialogs-app {
+        .dialogs {
+            right: 10px;
         }
 
-        .message-form {
-            bottom: 0em;
-            padding: .8rem;
+        .messages {
+            .content {
+                height: 100%;
+            }
+        }
+    }
+}
+@include media-breakpoint-up(sm) {
+    #dialogs-app {
+        .messages {
+            border-left: 1px solid #eee;
+            
+            .header {
+                position: relative;
+            }
+
+            .message-form {
+                position: absolute;
+                bottom: 0;
+                padding: .8rem;
 
 
-            .send-btn {
-                right: 1em;
-                top: .6em;
+                .send-btn {
+                    right: 1em;
+                    top: .6em;
+                }
             }
         }
     }
