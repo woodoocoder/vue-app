@@ -8,6 +8,7 @@ import location from './store/location'
 import dictionary from './store/dictionary'
 import dialogs from './store/dialogs'
 import likes from './store/likes'
+import media from './store/media'
 
 Vue.use(Vuex)
 
@@ -20,5 +21,6 @@ export default new Vuex.Store({
         dictionary,
         dialogs,
         likes,
+        media,
     }
 })

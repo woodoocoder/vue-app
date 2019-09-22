@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div class="row">
+    <div class="row pt-3">
         <div class="col-12">
             <h4 class="text-center">About You</h4>
 

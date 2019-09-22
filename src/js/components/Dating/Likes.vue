@@ -22,7 +22,7 @@
             <div class="row">
                 <div v-for="item in users"
                     v-bind:item="item.user" :key="item.user.id"
-                    class="col-6 col-md-3" @click="openProfile(item.user.id)">
+                    class="col-6 col-sm-4 col-md-3" @click="openProfile(item.user.id)">
                         <user-card :user="item.user" />
                 </div>
             </div>
