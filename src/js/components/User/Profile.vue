@@ -1,9 +1,10 @@
 <template>
-<div v-if="Object.keys(user).length !== 0" id="profile" class="row">
-
+<div v-if="Object.keys(user).length !== 0" id="profile" class="row pt-3">
+    
     <div class="col-3 text-center">
         <avatar :user="user" size="60" :rounded="true" />
     </div>
+
     <div class="col-9 header">
         <div class="row">
             <div class="col-9">
@@ -17,8 +18,18 @@
             <div v-if="user.filters && user.filters.city" class="col-12 location">
                 {{user.filters.city.name}}
             </div>
-            <div class="col-12 mt-2">
-                photos
+
+            <div class="col-12 mt-3 personal-info">
+                <div v-for="info in user.information">
+                    <div class="row item" v-if="info">
+                        <div class="col-6 col-sm-4">
+                            <h6>{{info.type}}:</h6>
+                        </div>
+                        <div class="col-6 col-sm-8">
+                            {{info.name}}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -37,25 +48,15 @@
         </div>
     </div>
 
-    <div class="col-12 col-sm-9 mt-2">
-        <h5 class="text-center">Personal information</h5>
-
-        <div v-for="info in user.information">
-            <div class="row" v-if="info">
-                <div class="col-6 col-sm-3">
-                    {{info.type}}:
-                </div>
-                <div class="col-6 col-sm-9">
-                    {{info.name}}
-                </div>
-            </div>
-        </div>
+    <div class="col-12 mt-3">
+        <carousel></carousel>
     </div>
 </div>
 </template>
 
 <script>
 import Avatar from './Avatar.vue'
+import Carousel from '../Media/Carousel.vue'
 import store from '../../store'
 
 export default {
@@ -66,7 +67,8 @@ export default {
         }
     },
     components: {
-        Avatar
+        Avatar,
+        Carousel
     },
     computed: {
         info() {

@@ -2,11 +2,12 @@
     <div>
         <div class="container-fluid">
             <div id="main-navbar" class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
-                <div class="d-none d-sm-block col-sm-5 col-md-6">
 
-                </div>
-                <div class="col-12 col-sm-7 col-md-6">
-                    <div class="container">
+                <div class="container">
+                    <div class="d-none d-sm-block col-sm-5 col-md-6">
+
+                    </div>
+                    <div class="col-12 col-sm-7 col-md-6">
                         <div v-if="isAuthenticated" class="row">
                             <div class="col-3 text-center">
                                 <router-link :to="{ name: 'home' }" class="text-center home-link">

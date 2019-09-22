@@ -9,8 +9,10 @@
 @import '~bootstrap/scss/bootstrap';
 
 @import 'nouislider';
+@import 'node_modules/slick-carousel/slick/slick';
 
-@media (max-width: 992px) {
+
+@media (max-width: 1024px) {
     .container {
         width: 100%;
         max-width: 100%;
@@ -160,6 +162,12 @@ a {
             color: $red;
         }
     }
+
+    .personal-info {
+        .item {
+            margin-bottom: 0.3rem;
+        }
+    }
 }
 
 #likes {
@@ -177,28 +185,13 @@ a {
 }
 
 
-@include media-breakpoint-down(xs) {
-    #main-navbar {
-        bottom: 0;
-        top: initial;
-    }
-
-    body {
-        padding-top: 0.5rem;
-        padding-bottom: 2rem;
-    }
-
-    .card .card-img-top {
-        max-height: 230px;
-    }
-}
-
 
 #dialogs-app {
     position: relative;
     height: calc(100vh - 2.6rem);
     margin: 0 -10px;
     overflow: hidden;
+    border: 1px solid #eee;
 
     .dialogs {
         position: absolute;
@@ -378,6 +371,20 @@ a {
 
 
 @include media-breakpoint-down(xs) {
+    #main-navbar {
+        bottom: 0;
+        top: initial;
+    }
+
+    body {
+        padding-top: 0.5rem;
+        padding-bottom: 2rem;
+    }
+
+    .card .card-img-top {
+        max-height: 230px;
+    }
+
     #dialogs-app {
         .dialogs {
             right: 10px;
@@ -389,7 +396,16 @@ a {
             }
         }
     }
+
+    #profile {
+        .personal-info {
+            .item {
+                border-bottom: 1px solid #eee;
+            }
+        }
+    }
 }
+
 @include media-breakpoint-up(sm) {
     #dialogs-app {
         .messages {
