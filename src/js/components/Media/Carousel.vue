@@ -15,7 +15,11 @@
             </slick>
         </div>
 
-        <modal :showModal="showUploadModal"/>
+        <modal :showModal="showUploadModal">
+            <template v-slot:header>
+                <h3 class="text-center">Upload</h3>
+            </template>
+        </modal>
     </div>
 </template>
 

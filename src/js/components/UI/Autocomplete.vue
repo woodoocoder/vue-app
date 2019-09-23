@@ -110,34 +110,4 @@ export default {
 }
 
 </script>
-<style>
-    .autocomplete {
-        position: relative;
-        width: 100%;
-    }
-    .autocomplete .autocomplete-list {
-        position: absolute;
-        max-height: 20rem;
-        width: 100%;
-        overflow-y: scroll;
-        background-color: #fff;
-        border: 1px solid #ced4da;
-        border-radius: 0.25rem;
-        z-index: 1;
-    }
-    .autocomplete .autocomplete-list ul {
-        position: relative;
-        width: 100%;
-        top: 0.1rem;
-        padding: 0.5rem 0;
-    }
-    .autocomplete .autocomplete-list .autocomplete-list-item {
-        position: relative;
-        cursor: pointer;
-        list-style: none;
-        padding: 0.1rem 1rem;
-    }
-    .autocomplete .autocomplete-list .autocomplete-list-item:hover {
-        background-color: #eee;
-    }
-</style>
+

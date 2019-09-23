@@ -1,22 +1,20 @@
 <template>
-<div v-if="show" @close="show = false" name="modal">
+<div v-if="show" @click="show = false" name="modal">
     <div class="modal-mask">
         <div class="modal-wrapper">
             <div class="modal-container">
 
-                <div class="modal-header">
-                    <slot name="header">
-                        Modal
-                    </slot>
+                <div v-if="hasSlot('header')" class="modal-header">
+                    <slot name="header"></slot>
                 </div>
 
-                <div class="modal-body">
+                <div :style="css.body" class="modal-body">
                     <slot name="body"></slot>
                 </div>
 
-                <div class="modal-footer">
+                <div v-if="hasSlot('footer')" class="modal-footer">
                     <slot name="footer">
-                        <button class="modal-default-button" @click="show = false">OK</button>
+                        <button class="btn btn-sm btn-danger" @click="show = false">Close</button>
                     </slot>
                 </div>
             </div>
@@ -34,7 +32,10 @@ export default {
     },
     data() {
         return {
-            show: false
+            show: false,
+            css: {
+                body: {}
+            }
         }
     },
     watch: {
@@ -43,70 +44,23 @@ export default {
         },
     },
     mounted() {
-        
+        if(!this.hasSlot('header') && !this.hasSlot('footer')) {
+            Object.assign(this.css.body, {top: '0', bottom: '0'});
+        }
+        else if(!this.hasSlot('header')) {
+            Object.assign(this.css.body, {top: '0'});
+        }
+        else if(!this.hasSlot('footer')) {
+            Object.assign(this.css.body, {bottom: '0'});
+        }
     },
     methods: {
-        
-    }
+        hasSlot(name) {
+            //<h3 class="text-center">Modal</h3>
+            return !!this.$slots[name]
+        },
+    },
 }
 
 </script>
 
-<style>
-.modal-mask {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, .5);
-  display: table;
-  transition: opacity .3s ease;
-}
-.modal-wrapper {
-    position: relative;
-    display: table-cell;
-    vertical-align: middle;
-}
-.modal-container {
-    position: absolute;
-    width: 900px;
-    min-height: 200px;
-    max-width: 100%;
-    max-height: calc(100% - 6rem);
-    margin: 0 auto;
-    right: 0;
-    left: 0;
-    top: 3rem;
-    bottom: 3rem;
-    padding: 10px;
-    background-color: #fff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-    transition: all .3s ease;
-    font-family: Helvetica, Arial, sans-serif;
-}
-.modal-header h3 {
-  margin-top: 0;
-  color: #42b983;
-}
-
-.modal-body {
-  margin: 20px 0;
-}
-.modal-default-button {
-  float: right;
-}
-.modal-enter {
-  opacity: 0;
-}
-
-.modal-leave-active {
-  opacity: 0;
-}
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-}
-</style>
