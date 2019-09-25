@@ -93,11 +93,24 @@ const module = {
             })
         },
         clearUnread: ({commit, state}, dialogId) => {
-            var data = {
-                id: dialogId,
-                unread_messages: 0
-            }
-            commit('UNREAD_DIALOGS', [data])
+            state.unreadDialogs.forEach(function(item, i) {
+                if(dialogId == item.id && item.unread_messages > 0) {
+                    var data = {
+                        id: dialogId,
+                        unread_messages: 0
+                    }
+                    commit('UNREAD_DIALOGS', [data])
+
+                    return new Promise((resolve, reject) => {
+                        axios.put('dialogs/mark_reed/'+dialogId).then(resp => {
+                            resolve(resp)
+                        })
+                        .catch(err => {
+                            reject(err)
+                        })
+                    })
+                }
+            })
         },
         getDialogs: ({commit, state}, user) => {
             var channelName = 'dialogs.'+user.id;
@@ -105,7 +118,7 @@ const module = {
             if (state.dialogs.length > 0) {
                 Echo.leave(channelName);
             }
-            window.Echo.private(channelName).listen('.new-dialog', (e) => {
+            Echo.private(channelName).listen('.new-dialog', (e) => {
                 commit('NEW_DIALOG', e.data)
                 commit('UNREAD_DIALOGS', [e.data])
             });
