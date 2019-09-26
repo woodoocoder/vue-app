@@ -1,5 +1,5 @@
 <template>
-<div v-if="Object.keys(user).length !== 0" id="profile" class="row pt-3">
+<div v-if="Object.keys(user).length !== 0" id="profile" class="row pt-3 pb-4">
     
     <div class="col-3 text-center">
         <avatar :user="user" size="60" :rounded="true" />
@@ -18,23 +18,23 @@
             <div v-if="user.filters && user.filters.city" class="col-12 location">
                 {{user.filters.city.name}}
             </div>
+        </div>
+    </div>
 
-            <div class="col-12 mt-3 personal-info">
-                <div v-for="info in user.information">
-                    <div class="row item" v-if="info">
-                        <div class="col-6 col-sm-4">
-                            <h6>{{info.type}}:</h6>
-                        </div>
-                        <div class="col-6 col-sm-8">
-                            {{info.name}}
-                        </div>
-                    </div>
+    <div class="col-12 col-sm-9 mt-3 order-sm-1 personal-info">
+        <div v-for="info in user.information">
+            <div class="row item" v-if="info">
+                <div class="col-5 col-sm-4">
+                    <h6>{{info.type}}:</h6>
+                </div>
+                <div class="col-7 col-sm-8">
+                    {{info.name}}
                 </div>
             </div>
         </div>
     </div>
-    <div v-if="user.id != authUser.id" class="col-12 col-sm-3 mt-2">
-        <div class="row actions">
+    <div class="col-12 col-sm-3 mt-3 order-sm-0">
+        <div v-if="user.id != authUser.id" class="row actions">
             <div class="col-6 text-center">
                 <router-link :to="{ name: 'new-dialog', params: { participantId: user.id }}" class="text-center">
                     <font-awesome-icon icon="envelope" class="new-dialog"/>
@@ -48,7 +48,7 @@
         </div>
     </div>
 
-    <div class="col-12 mt-3">
+    <div class="col-12 mt-3 order-sm-2">
         <carousel></carousel>
     </div>
 </div>

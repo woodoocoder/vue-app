@@ -1,0 +1,228 @@
+
+#dialogs-app {
+    position: relative;
+    height: calc(100vh - 2.6rem);
+    margin: -1px -10px;
+    overflow: hidden;
+    border: 1px solid $border-color;
+
+    .dialogs {
+        position: absolute;
+        top: 0;
+        right: -10px;
+        bottom: 0;
+        left: 20px;
+        padding-right: 10px;
+        padding-bottom: 2.6rem;
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        .dialog {
+            margin-top: 0.3rem;
+            padding-bottom: 0.3rem;
+            border-bottom: 1px solid $border-color;
+
+            .subject {
+                font-weight: bold;
+            }
+
+            .date {
+                font-size: 0.8rem;
+            }
+        }
+    }
+}
+
+
+.messages {
+    height: 100%;
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 0;
+    top: 0;
+    padding-bottom: 3rem;
+
+    .header {
+        font-size: 1.2em;
+        position: fixed;
+        top: 0;
+        left: 10px;
+        right: 9px;
+        height: 2.4rem;
+        padding-top: .3rem;
+        z-index: 1000;
+        background: #fff;
+        border-bottom: 1px solid $border-color;
+        box-shadow: 0px 2px 4px -2px rgba(0, 0, 0, 0.75);
+
+        .subject {
+            font-weight: bold;
+        }
+    }
+
+    .content {
+        height: calc(100% - 2.4rem);
+        margin-top: 0rem;
+        padding-bottom: 0.5rem;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        .typing-block {
+            position: absolute;
+            bottom: 3rem;
+            left: .2rem;
+            color: #717171;
+        }
+
+        .message {
+            .body {
+                position: relative;
+                margin-top: 0.2rem;
+                margin-bottom: 0.2rem;
+                padding: 0.7rem 0.85rem;
+                max-width: 70vw;
+                min-width: 100px;
+                min-height: 50px;
+                border-radius: 10px;
+                border: 1px solid $message-border;
+                background-color: $message-background;
+                text-align: left;
+
+                .date {
+                    font-size: .7rem;
+                    position: absolute;
+                    bottom: 0px;
+                    right: 10px;
+                    color: #717171;
+                }
+
+                &:after,
+                &:before {
+                    content: '';
+                    position: absolute;
+                    width: 0;
+                    height: 0;
+                }
+
+                &:after {
+                    border-left: 15px solid transparent;
+                    border-right: 15px solid transparent;
+                }
+
+                &:before {
+                    border-left: 16px solid transparent;
+                    border-right: 16px solid transparent;
+                }
+
+                &.left {
+                    float: left;
+                    left: 1em;
+
+                    &:after {
+                        border-top: 15px solid $message-background;
+                        top: 0;
+                        left: -15px;
+                    }
+
+                    &:before {
+                        border-top: 17px solid $message-border;
+                        top: -1px;
+                        left: -17px;
+                    }
+                }
+
+                &.right {
+                    float: right;
+                    right: 1em;
+
+                    &:after {
+                        border-bottom: 15px solid $message-background;
+                        bottom: 0;
+                        right: -15px;
+                    }
+
+                    &:before {
+                        border-bottom: 17px solid $message-border;
+                        bottom: -1px;
+                        right: -17px;
+                    }
+                }
+            }
+        }
+    }
+    .message-form {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: auto;
+        padding: .5rem;
+        background-color: #eee;
+        z-index: 10000;
+
+        textarea {
+            padding-right: 2rem;
+            background-color: #eee;
+            border: 0;
+            border-bottom: 1px solid $message-btn-color;
+
+            &:focus {
+                border-color: none;
+                outline: 0;
+                box-shadow: none;
+            }
+        }
+
+        .send-btn {
+            position: absolute;
+            right: .5em;
+            top: .2em;
+            color: $message-btn-color;
+            font-size: 1.5rem;
+        }
+    }
+}
+
+
+@include media-breakpoint-down(xs) {
+    #dialogs-app {
+        .dialogs {
+            right: 10px;
+        }
+
+        .messages {
+            .content {
+                height: 100%;
+                margin-top: 2.4rem;
+            }
+        }
+    }
+}
+
+@include media-breakpoint-up(sm) {
+    #dialogs-app {
+        .messages {
+            border-left: 1px solid $border-color;
+            
+            .header {
+                position: relative;
+            }
+
+            .message-form {
+                position: absolute;
+                bottom: 0;
+                padding: .8rem;
+
+
+                .send-btn {
+                    right: 1em;
+                    top: .6em;
+                }
+            }
+        }
+    }
+}
+
+

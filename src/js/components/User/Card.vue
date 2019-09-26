@@ -2,7 +2,7 @@
     <div class="card">
         <avatar :user="user" :size="365" />
         
-        <div class="card-body">
+        <div class="card-body user-card-body">
             {{ user.firstname }}
         </div>
     </div>

@@ -2,9 +2,11 @@
     <div v-if="Object.keys(dialog).length !== 0 || !dialogId" class="messages">
         <div class="row header">
             <div class="col-2 text-center" >
-                <router-link :to="{ name: 'dialogs' }" class="back-link">
-                    <font-awesome-icon icon="chevron-left" />
-                </router-link>
+                <div v-if="parseInt(windowWidth) < 575">
+                    <router-link :to="{ name: 'dialogs' }" class="back-link">
+                        <font-awesome-icon icon="chevron-left" />
+                    </router-link>
+                </div>
             </div>
             <div class="col-8 text-center subject">
                 <div v-if="dialog.participants">
@@ -14,7 +16,7 @@
                     New Dialog
                 </div>
             </div>
-            <div v-if="dialog.participants" @click="openInfo" class="col-2 text-center">
+            <div v-if="dialog.participants" @click="showInfoModal=true" class="col-2 text-center">
                 <font-awesome-icon icon="info-circle" />
             </div>
         </div>
@@ -32,18 +34,57 @@
                 </div>
             </div>
 
-
             <div v-if="lastTyping" :class="isTyping">
                 typing...
             </div>
-
             <message-form :dialogId="dialogId" :participants="participants"/>
-            
         </div>
+
+        <modal :showModal="showInfoModal" @close="showInfoModal = false">
+            <template v-slot:header>
+                <h3 class="text-center">Information</h3>
+            </template>
+            <template v-slot:body>
+                <div class="col-12 col-sm-8 offset-sm-2">
+                    <div v-for="item in dialog.participants"
+                        v-bind:item="item" :key="item.id" class="row">
+                        <div v-if="authUser.id!=item.user.id" class="col-12 mt-2">
+                            <div class="row" @click="openProfile(item.user.id)">
+                                <div class="col-3 col-sm-2">
+                                    <avatar :user="item.user" size="60" :rounded="true" />
+                                </div>
+                                <div class="col-5 pt-2">
+                                    <h5>{{item.user.firstname}}</h5>
+                                </div>
+                                <div class="col-4 pt-4 text-danger">Block user</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-4">
+                        <div class="row">
+                            <div class="col-6">Created:</div>
+                            <div class="col-6">{{ dialog.created_at | moment("YYYY.MM.DD H:mm") }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">Massages:</div>
+                            <div class="col-6">{{ dialog.count_messages }}</div>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-4">
+                        <div class="row">
+                            <div class="col-12 text-danger">Clear history</div>
+                            <div class="col-12 text-danger">Delete conversation</div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </modal>
     </div>
 </template>
 
 <script>
+import Modal from '../UI/Modal';
+import Avatar from '../User/Avatar.vue'
 import store from '../../store'
 import MessageForm from './MessageForm.vue'
 
@@ -51,14 +92,17 @@ export default {
     data() {
         return {
             baseURL: window.baseURL,
+            windowWidth: window.innerWidth,
+            showInfoModal: false,
             dialogId: null,
             participants: [],
-            infoOpened: false,
             lastTyping: null,
             timer: null,
         }
     },
     components: {
+        Modal,
+        Avatar,
         MessageForm
     },
     computed: {
@@ -150,11 +194,18 @@ export default {
                 return participant[0].user;
             }
         },
-        openInfo() {
-            this.infoOpened = !this.infoOpened;
-        }
+        openProfile(userId) {
+            this.$router.push({ name: 'view-profile', params: { userId:userId } })
+        },
+        handleResize() {
+            this.windowWidth = window.innerWidth;
+        },
+    },
+    beforeMount () {
+        window.addEventListener('resize', this.handleResize);
     },
     beforeDestroy () {
+        window.removeEventListener('resize', this.handleResize);
         store.dispatch('dialogs/clearDialog')
     }
 }

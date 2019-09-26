@@ -1,0 +1,36 @@
+.vue-select {
+    position: relative;
+    width: 100%;
+}
+.close {
+    top: .3rem;
+    right: .5rem;
+    position: absolute;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+.vue-select .vue-select-list {
+    position: absolute;
+    max-height: 20rem;
+    width: 100%;
+    overflow-y: scroll;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    z-index: 1;
+}
+.vue-select .vue-select-list ul {
+    position: relative;
+    width: 100%;
+    top: 0.1rem;
+    padding: 0.5rem 0;
+}
+.vue-select .vue-select-list .vue-select-list-item {
+    position: relative;
+    cursor: pointer;
+    list-style: none;
+    padding: 0.1rem 1rem;
+}
+.vue-select .vue-select-list .vue-select-list-item:hover {
+    background-color: #eee;
+}

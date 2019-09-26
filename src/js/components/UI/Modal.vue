@@ -1,21 +1,22 @@
 <template>
-<div v-if="show" @click="show = false" name="modal">
+<div v-if="showModal" name="modal">
     <div class="modal-mask">
         <div class="modal-wrapper">
             <div class="modal-container">
 
                 <div v-if="hasSlot('header')" class="modal-header">
                     <slot name="header"></slot>
+
+                    <span class="float-right close-btn">
+                        <font-awesome-icon icon="times"  @click="$emit('close')"/>
+                    </span>
                 </div>
 
                 <div :style="css.body" class="modal-body">
                     <slot name="body"></slot>
                 </div>
-
                 <div v-if="hasSlot('footer')" class="modal-footer">
-                    <slot name="footer">
-                        <button class="btn btn-sm btn-danger" @click="show = false">Close</button>
-                    </slot>
+                    <slot name="footer"></slot>
                 </div>
             </div>
         </div>
@@ -32,16 +33,10 @@ export default {
     },
     data() {
         return {
-            show: false,
             css: {
                 body: {}
             }
         }
-    },
-    watch: {
-        showModal() {
-            this.show = this.showModal
-        },
     },
     mounted() {
         if(!this.hasSlot('header') && !this.hasSlot('footer')) {
@@ -59,7 +54,18 @@ export default {
             //<h3 class="text-center">Modal</h3>
             return !!this.$slots[name]
         },
+        keyupEsc(evt) {
+            if (evt.keyCode === 27) {
+                this.$emit('close');
+            }
+        }
     },
+    beforeMount () {
+        document.addEventListener('keyup', this.keyupEsc);
+    },
+    beforeDestroy () {
+        window.removeEventListener('keyup', this.keyupEsc);
+    }
 }
 
 </script>
