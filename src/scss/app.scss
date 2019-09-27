@@ -10,14 +10,16 @@
 
 @import 'themes/white';
 
+@import 'UI/mixins';
+@import 'UI/autocomplete';
+@import 'UI/modal';
+@import 'UI/select';
+
 @import 'layouts/main';
+@import 'layouts/navbar';
 @import 'layouts/dialogs';
 @import 'layouts/profile';
 @import 'layouts/users';
 
-
 @import 'nouislider';
 @import 'node_modules/slick-carousel/slick/slick';
-@import 'UI/autocomplete';
-@import 'UI/modal';
-@import 'UI/select';

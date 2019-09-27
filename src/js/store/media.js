@@ -21,6 +21,8 @@ const module = {
     actions: {
         getMedia: ({commit, dispatch}, userId) => {
             return new Promise((resolve, reject) => {
+                resolve()
+                /*
                 axios.get('media/user/'+userId).then(resp => {
                     commit('MEDIA_REQUEST', resp.data.data)
                     resolve(resp.data)
@@ -28,6 +30,7 @@ const module = {
                 .catch(err => {
                     reject(err)
                 })
+                */
             })
         }
     },

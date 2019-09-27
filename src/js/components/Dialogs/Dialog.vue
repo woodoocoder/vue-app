@@ -49,11 +49,11 @@
                     <div v-for="item in dialog.participants"
                         v-bind:item="item" :key="item.id" class="row">
                         <div v-if="authUser.id!=item.user.id" class="col-12 mt-2">
-                            <div class="row" @click="openProfile(item.user.id)">
-                                <div class="col-3 col-sm-2">
+                            <div class="row">
+                                <div @click="openProfile(item.user.id)" class="col-3 col-sm-2">
                                     <avatar :user="item.user" size="60" :rounded="true" />
                                 </div>
-                                <div class="col-5 pt-2">
+                                <div @click="openProfile(item.user.id)" class="col-5 pt-2">
                                     <h5>{{item.user.firstname}}</h5>
                                 </div>
                                 <div class="col-4 pt-4 text-danger">Block user</div>

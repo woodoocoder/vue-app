@@ -2,17 +2,12 @@
     <div class="row">
         <div class="col d-md-none">
             <div class="row header justify-content-end">
-                <div @click="showHideFilter()" class="col-3 text-right">
-                    <div v-if="filterOpened">
-                        <font-awesome-icon icon="times" />
-                    </div>
-                    <div v-else="">
-                        <font-awesome-icon icon="cog" />
-                    </div>
+                <div @click="filterOpened = !filterOpened" class="col-3 text-right">
+                    <font-awesome-icon icon="cog" />
                 </div>
             </div>
         </div>
-        <div v-if="filterOpened || window.width >= 768" class="col-md-3 order-0 order-md-1 mb-2">
+        <div v-if="window.width >= 768" class="col-md-3 order-0 order-md-1 mb-2">
             <search-filter></search-filter>
         </div>
         <div class="col-md-9 order-1 order-md-0 mt-2">
@@ -24,23 +19,34 @@
                 </div>
             </div>
         </div>
+
+        <modal v-if="window.width < 768" :showModal="filterOpened" @close="filterOpened = false">
+            <template v-slot:header><h3 class="text-center">Search filter</h3></template>
+            <template v-slot:body>
+                <div class="col-12">
+                    <search-filter  @close="filterOpened = false"></search-filter>
+                </div>
+            </template>
+        </modal>
     </div>
 </template>
 
 
 <script>
+import Modal from '../UI/Modal';
 import store from '../../store'
 import UserCard from '../User/Card.vue'
 import SearchFilter from './SearchFilter.vue'
 
 export default {
     components: {
+        Modal,
         UserCard,
         SearchFilter
     },
     data() {
         return {
-            filterOpened: false ,
+            filterOpened: false,
             window: {
                 width: 0,
                 height: 0
@@ -63,9 +69,6 @@ export default {
         window.removeEventListener('resize', this.handleResize)
     },
     methods: {
-        showHideFilter() {
-            this.filterOpened = !this.filterOpened;
-        },
         openProfile(userId) {
             this.$router.push({ name: 'view-profile', params: { userId:userId } })
         },

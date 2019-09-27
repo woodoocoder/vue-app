@@ -5,7 +5,7 @@
                 ref="slick"
                 :options="slickOptions">
 
-                <div>
+                <div id="upload-block">
                     <div class="upload-btn" @click="showUploadModal=true">+</div>
                 </div>
                 <div v-for="item in files"

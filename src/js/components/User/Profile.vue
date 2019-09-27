@@ -111,5 +111,8 @@ export default {
     beforeMount () {
         this.getInformation();
     },
+    beforeDestroy () {
+        this.$refs.carousel.destroy()
+    }
 }
 </script>

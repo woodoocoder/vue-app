@@ -1,7 +1,7 @@
 <template>
     <div id="search-filter" class="row">
-        <div class="col-12 filter">
-            <h5 class="text-center">I’m here to</h5>
+        <div class="col-12 mt-2 filter">
+            <h4 class="text-center">I’m here to</h4>
             
             <div class="form-check" v-for="item in reasons" 
                 v-bind:item="item" :key="item.id">
@@ -147,6 +147,8 @@ export default {
             var _this = this;
             var filters = this.filters;
             
+            this.$emit('close');
+
             store.dispatch('user/updateFilters', filters)
                 .then(function(response) {
                     store.dispatch('dating/getUsers', filters)

@@ -1,11 +1,4 @@
 
-@media (max-width: 1024px) {
-    .container {
-        width: 100%;
-        max-width: 100%;
-    }
- }
-
 body {
     padding-top: 2.6rem;
     color: $main-font-color;
@@ -25,60 +18,12 @@ a {
     text-decoration: none;
 }
 
-.counter {
-    color: $white;
-    min-width: 1.1rem;
-    line-height: 1.1rem;
-    padding: .1rem .3rem;
-    border-radius: 1.2rem;
-    font-size: .7rem;
-    font-weight: bold;
-    background: #9db5cd;
-}
-
-.navbar {
-    padding: 0.1rem 0.5rem;
-    
-    a {
-        display: block;
-        font-size: 1.5rem;
-        color: $white;
-        border-bottom: 2px solid transparent;
-        text-decoration: none;
-
-        &.router-link-exact-active {
-            border-bottom: 2px solid $white;
-        }
-
-        h5 {
-            line-height: 1.5rem;
-            margin: .2rem;
-        }
-    }
-
-    .counter {
-        position: absolute;
-        top: .1rem;
-        right: calc(50% - 1.2rem);
-        padding: 0 .3rem;
-        background: $red;
-    }
-}
-
 .form-control {
     height: calc(1em + 0.7rem + 2px);
     padding: 0.1rem 0.7rem;
     overflow: hidden;
 }
 
-
-.header {
-    font-size: 1.2em;
-    
-    svg {
-        color: #9db5cd;
-    }
-}
 
 #login, #register {
     &.card {
@@ -87,12 +32,15 @@ a {
     }
 }
 
-@include media-breakpoint-down(xs) {
-    #main-navbar {
-        bottom: 0;
-        top: initial;
+@media (max-width: 1024px) {
+    .container {
+        width: 100%;
+        max-width: 100%;
     }
+}
 
+@include media-breakpoint-down(xs) {
+    
     body {
         padding-top: 0rem;
         padding-bottom: 2rem;
