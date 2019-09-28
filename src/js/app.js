@@ -1,5 +1,8 @@
 require('./bootstrap');
 
+import obj from './mixins/obj'
+import date from './mixins/date'
+
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
@@ -17,6 +20,9 @@ Vue.router = new VueRouter(Routes);
 export default Vue;
 
 App.router = Vue.router
+
+Vue.mixin(obj)
+Vue.mixin(date)
 
 new Vue({
     el: '#app',

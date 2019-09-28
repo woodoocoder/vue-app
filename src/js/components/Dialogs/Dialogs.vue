@@ -10,12 +10,12 @@
                 </div>
                 <div class="col-10">
                     <div class="row">
-                        <div class="col-8 subject">
+                        <div class="col-7 subject">
                             {{firstParticipant(item.participants).firstname}}
                         </div>
-                        <div class="col-4">
+                        <div class="col-5">
                             <span class="date text-light float-right">
-                                {{ item.updated_at | moment("MM.DD H:mm") }}
+                                {{ item.updated_at|formatDate|diffForHumans }}
                             </span>
                         </div>
                     </div>

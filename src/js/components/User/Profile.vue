@@ -1,5 +1,5 @@
 <template>
-<div v-if="Object.keys(user).length !== 0" id="profile" class="row pt-3 pb-4">
+<div v-if="!objectIsEmpty(user)" id="profile" class="row pt-3 pb-4">
     
     <div class="col-3 text-center">
         <avatar :user="user" size="60" :rounded="true" />
@@ -22,7 +22,7 @@
     </div>
 
     <div class="col-12 col-sm-9 mt-3 order-sm-1 personal-info">
-        <div v-for="info in user.information">
+        <div v-for="info in user.information" v-bind:item="info" :key="(info&&info.id)?info.id:null">
             <div class="row item" v-if="info">
                 <div class="col-5 col-sm-4">
                     <h6>{{info.type}}:</h6>
@@ -110,9 +110,6 @@ export default {
     },
     beforeMount () {
         this.getInformation();
-    },
-    beforeDestroy () {
-        this.$refs.carousel.destroy()
     }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div v-if="Object.keys(dialog).length !== 0 || !dialogId" class="messages">
+    <div v-if="!objectIsEmpty(dialog) || !dialogId" class="messages">
         <div class="row header">
             <div class="col-2 text-center" >
                 <div v-if="parseInt(windowWidth) < 575">
@@ -28,7 +28,7 @@
                     <div :class="isMyMessage(item)?'body right':'body left'">
                         <div v-text="item.message"></div>
                         <span class="date">
-                            {{ item.created_at | moment("MM.DD H:mm") }}
+                            {{ item.created_at|formatDate|diffForHumans }}
                         </span>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                     <div class="col-12 mt-4">
                         <div class="row">
                             <div class="col-6">Created:</div>
-                            <div class="col-6">{{ dialog.created_at | moment("YYYY.MM.DD H:mm") }}</div>
+                            <div class="col-6">{{ dialog.created_at | formatDate(null, 'YYYY-MM-DD HH:mm') }}</div>
                         </div>
                         <div class="row">
                             <div class="col-6">Massages:</div>
