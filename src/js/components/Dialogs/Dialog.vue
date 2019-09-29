@@ -89,6 +89,7 @@ import store from '../../store'
 import MessageForm from './MessageForm.vue'
 
 export default {
+    props: ['userId'],
     data() {
         return {
             baseURL: window.baseURL,
@@ -172,6 +173,10 @@ export default {
             var _this = this;
             this.participants[0] = this.$route.params.participantId
             this.dialogId = this.$route.params.dialogId
+
+            if(!this.participants[0]) {
+                this.participants[0] = this.userId;
+            }
 
             store.dispatch('dialogs/clearDialog')
             if(this.dialogId) {

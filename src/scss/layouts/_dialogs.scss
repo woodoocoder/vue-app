@@ -11,7 +11,8 @@
         top: 0;
         right: -10px;
         bottom: 0;
-        left: 20px;
+        left: 10px;
+        padding-left: 10px;
         padding-right: 10px;
         padding-bottom: 2.6rem;
         height: 100%;
@@ -19,7 +20,7 @@
         overflow-y: auto;
 
         .dialog {
-            margin-top: 0.3rem;
+            margin-top: 0rem;
             padding-bottom: 0.3rem;
             border-bottom: 1px solid $border-color;
 
@@ -185,6 +186,29 @@
     }
 }
 
+#profile {
+    .modal-body {
+        position: absolute;
+        left: -20px;
+        right: 0;
+
+        .new-dialog {
+            height: 100%;
+        }
+        .messages {
+            position: relative;
+
+            .header, .message-form {
+                position: absolute;
+            }
+        }
+        .close-btn {
+            position: relative;
+            z-index: 9999;
+            padding: 9px;
+        }
+    }
+}
 
 @include media-breakpoint-down(xs) {
     #dialogs-app {

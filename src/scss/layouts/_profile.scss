@@ -15,9 +15,17 @@
 
         .new-dialog {
             color: $teal;
+            
+            &:active {
+                animation: pulse 2s ease infinite;
+            }
         }
         .like {
             color: $red;
+
+            &:active {
+                animation: pulse 2s ease infinite;
+            }
         }
     }
 

@@ -35,10 +35,15 @@
     </div>
     <div class="col-12 col-sm-3 mt-3 order-sm-0">
         <div v-if="user.id != authUser.id" class="row actions">
-            <div class="col-6 text-center">
+            <div v-if="windowWidth < 575" class="col-6 text-center">
                 <router-link :to="{ name: 'new-dialog', params: { participantId: user.id }}" class="text-center">
                     <font-awesome-icon icon="envelope" class="new-dialog"/>
                 </router-link>
+            </div>
+            <div v-else="" class="col-6 text-center">
+                <div @click="showNewDialogModal=true">
+                    <font-awesome-icon icon="envelope" class="new-dialog"/>
+                </div>
             </div>
             <div class="col-6 text-center">
                 <div class="text-center" @click="like()">
@@ -51,10 +56,23 @@
     <div class="col-12 mt-3 order-sm-2">
         <carousel></carousel>
     </div>
+
+    <modal :showModal="showNewDialogModal" @close="showNewDialogModal = false">
+        <template v-slot:body>
+            <span class="float-right close-btn">
+                <font-awesome-icon icon="times"  @click="showNewDialogModal = false"/>
+            </span>
+            <div class="new-dialog col-12">
+                <new-dialog :userId="userId"/>
+            </div>
+        </template>
+    </modal>
 </div>
 </template>
 
 <script>
+import Modal from '../UI/Modal';
+import NewDialog from '../Dialogs/Dialog.vue'
 import Avatar from './Avatar.vue'
 import Carousel from '../Media/Carousel.vue'
 import store from '../../store'
@@ -62,11 +80,15 @@ import store from '../../store'
 export default {
     data() {
         return {
+            windowWidth: window.innerWidth,
             baseURL: window.baseURL,
+            showNewDialogModal: false,
             userId: null
         }
     },
     components: {
+        Modal,
+        NewDialog,
         Avatar,
         Carousel
     },
@@ -106,10 +128,17 @@ export default {
                 .then(function(response) {
 
                 })
-        }
+        },
+        handleResize() {
+            this.windowWidth = window.innerWidth;
+        },
     },
     beforeMount () {
         this.getInformation();
+        window.addEventListener('resize', this.handleResize);
+    },
+    beforeDestroy () {
+        window.removeEventListener('resize', this.handleResize);
     }
 }
 </script>
