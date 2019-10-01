@@ -35,12 +35,7 @@
     </div>
     <div class="col-12 col-sm-3 mt-3 order-sm-0">
         <div v-if="user.id != authUser.id" class="row actions">
-            <div v-if="windowWidth < 575" class="col-6 text-center">
-                <router-link :to="{ name: 'new-dialog', params: { participantId: user.id }}" class="text-center">
-                    <font-awesome-icon icon="envelope" class="new-dialog"/>
-                </router-link>
-            </div>
-            <div v-else="" class="col-6 text-center">
+            <div class="col-6 text-center">
                 <div @click="showNewDialogModal=true">
                     <font-awesome-icon icon="envelope" class="new-dialog"/>
                 </div>
