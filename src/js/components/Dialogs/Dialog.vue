@@ -199,6 +199,31 @@ export default {
                 return participant[0].user;
             }
         },
+        blockUser(user) {
+            var _this = this;
+            store.dispatch('user/blockUser', user)
+                .then(function(response) {
+                    _this.$router.push({ name: 'dialogs'})
+                })
+        },
+        clearHistory() {
+            var _this = this;
+            var data = {dialog_id: this.dialogId};
+                
+            store.dispatch('dialogs/clear', data)
+                .then(function(response) {
+
+                })
+        },
+        deleteConversation() {
+            var _this = this;
+            var data = {dialog_id: this.dialogId};
+
+            store.dispatch('dialogs/delete', data)
+                .then(function(response) {
+                    _this.$router.push({ name: 'dialogs'})
+                })
+        },
         openProfile(userId) {
             this.$router.push({ name: 'view-profile', params: { userId:userId } })
         },

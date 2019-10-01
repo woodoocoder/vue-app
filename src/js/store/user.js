@@ -59,7 +59,16 @@ const module = {
                 })
             })
         },
-
+        blockUser: ({commit, dispatch}, params) => {
+            return new Promise((resolve, reject) => {
+                axios.put('user/'+params.id+'/block').then(resp => {
+                    resolve(resp.data)
+                })
+                .catch(err => {
+                    reject(err)
+                })
+            })
+        },
     },
     getters: {
         user: state => state.user,

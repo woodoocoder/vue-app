@@ -192,6 +192,26 @@ const module = {
                 })
             })
         },
+        clear: ({commit, dispatch}, params) => {
+            return new Promise((resolve, reject) => {
+                axios.put('dialogs/'+params.dialog_id+'/clear', data).then(resp => {
+                    resolve(resp.data)
+                })
+                .catch(err => {
+                    reject(err)
+                })
+            })
+        },
+        delete: ({commit, dispatch}, params) => {
+            return new Promise((resolve, reject) => {
+                axios.put('dialogs/'+params.dialog_id+'/delete', data).then(resp => {
+                    resolve(resp.data)
+                })
+                .catch(err => {
+                    reject(err)
+                })
+            })
+        },
     },
     getters: {
         dialogs: state => state.dialogs,

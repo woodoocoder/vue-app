@@ -11,7 +11,7 @@
             <div class="col-10">
                 <div class="row">
                     <div class="col-7 subject">
-                        {{firstParticipant(item.participants).firstname|truncate(18)}}
+                        {{firstParticipant(item.participants).firstname|truncate(14)}}
                     </div>
                     <div class="col-5">
                         <span class="date text-light float-right">
