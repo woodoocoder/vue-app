@@ -1,6 +1,7 @@
 require('./bootstrap');
 
 import obj from './mixins/obj'
+import str from './mixins/str'
 import date from './mixins/date'
 
 import Vue from 'vue';
@@ -21,6 +22,7 @@ export default Vue;
 
 App.router = Vue.router
 
+Vue.mixin(str)
 Vue.mixin(obj)
 Vue.mixin(date)
 

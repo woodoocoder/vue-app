@@ -11,7 +11,7 @@
             <div class="col-10">
                 <div class="row">
                     <div class="col-7 subject">
-                        {{firstParticipant(item.participants).firstname}}
+                        {{firstParticipant(item.participants).firstname|truncate(18)}}
                     </div>
                     <div class="col-5">
                         <span class="date text-light float-right">
@@ -21,8 +21,8 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <div v-if="item.latest_message">
-                            {{item.latest_message.message}}
+                        <div class="last-message" v-if="item.latest_message">
+                            {{item.latest_message.message|truncate(24)}}
 
                             <span v-if="countUnread(item) > 0" class="counter float-right">
                                 {{countUnread(item)}}
@@ -50,7 +50,8 @@ export default {
     },
     computed: {
         dialogs() {
-            return store.getters['dialogs/dialogs']
+            var items = store.getters['dialogs/dialogs']
+            return items.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
         },
         authUser() {
             return store.getters['auth/user']

@@ -28,7 +28,15 @@
                 font-weight: bold;
             }
 
+            .last-message {
+                overflow: hidden;
+            }
+
             .date {
+                position: absolute;
+                right: 10px;
+                min-width: 110px;
+                text-align: right;
                 font-size: 0.8rem;
             }
         }
@@ -84,12 +92,13 @@
                 margin-bottom: 0.2rem;
                 padding: 0.7rem 0.85rem;
                 max-width: 70vw;
-                min-width: 100px;
+                min-width: 30%;
                 min-height: 50px;
                 border-radius: 10px;
                 border: 1px solid $message-border;
                 background-color: $message-background;
                 text-align: left;
+                word-wrap: break-word;
 
                 .date {
                     font-size: .7rem;
