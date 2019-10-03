@@ -26,8 +26,8 @@
                                 <router-link :to="{ name: 'dialogs' }" class="text-center">
                                     <font-awesome-icon icon="envelope" />
                                 </router-link>
-                                <span v-if="unreadDialogs > 0" class="counter">
-                                    {{unreadDialogs}}
+                                <span v-if="unreadDialogs.length > 0" class="counter">
+                                    {{unreadDialogsStr}}
                                 </span>
                             </div>
                             <div class="col-3 text-center">
@@ -86,8 +86,10 @@ export default {
             return store.getters['dialogs/dialog']
         },
         unreadDialogs() {
-            var unreadDialogs = store.getters['dialogs/unreadDialogs']
-            return unreadDialogs.length<100?unreadDialogs.length:'99+';
+            return store.getters['dialogs/unreadDialogs']
+        },
+        unreadDialogsStr() {
+            return this.unreadDialogs.length<100?this.unreadDialogs.length:'99+';
         },
         likes() {
             return store.getters['likes/likes']
@@ -102,13 +104,17 @@ export default {
         'scrollY': function(from, to) {
             //console.log(from+' '+to);
         },
-        dialogs: function(val) {
-            if(Object.keys(this.dialog).length === 0) {
-                this.playSound()
-            }
+        unreadDialogs: function(val) {
+            var _this = this;
+            setTimeout(function() {
+                if(_this.unreadDialogs.length > 0) {
+                    _this.playSound()
+                }
+            }, 500)
         },
         unreadLikes: function(val) {
-            if(Object.keys(this.unreadLikes).length === 0) {
+            if(Object.keys(this.unreadLikes).length === 0 && this.unreadLikes.length > 0) {
+                console.log('unreadLikes playSound');
                 this.playSound()
             }
         },

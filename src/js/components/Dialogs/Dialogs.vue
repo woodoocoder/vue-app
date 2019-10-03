@@ -65,12 +65,14 @@ export default {
             this.$router.push({ name: 'dialog', params: { dialogId:dialogId } })
         },
         firstParticipant(participants) {
-            var _this = this;
-            var participant = participants.filter(function(item) {
-                return item.user.id != _this.authUser.id
-            });
-            
-            return participant[0].user;
+            if(participants) {
+                var _this = this;
+                var participant = participants.filter(function(item) {
+                    return item.user.id != _this.authUser.id
+                });
+                
+                return participant[0].user;
+            }
         },
         countUnread(dialog) {
             for(let i=0; i<this.unreadDialogs.length; i++) {

@@ -92,7 +92,7 @@
                 margin-bottom: 0.2rem;
                 padding: 0.7rem 0.85rem;
                 max-width: 70vw;
-                min-width: 30%;
+                min-width: 120px;
                 min-height: 50px;
                 border-radius: 10px;
                 border: 1px solid $message-border;
@@ -177,6 +177,7 @@
             background-color: #eee;
             border: 0;
             border-bottom: 1px solid $message-btn-color;
+            resize: vertical;
 
             &:focus {
                 border-color: none;

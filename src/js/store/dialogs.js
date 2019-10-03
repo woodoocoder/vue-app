@@ -23,7 +23,7 @@ const module = {
         NEW_DIALOG: (state, dialog) => {
             var exist = false;
             state.dialogs.forEach(function(item, i) {
-                if(item.id === dialog.id) {
+                if(item.id == dialog.id) {
                     Vue.set(state.dialogs, i, dialog);
                     exist = true;
                 }
@@ -33,25 +33,7 @@ const module = {
             }
         },
         UNREAD_DIALOGS: (state, dialogs) => {
-            state.unreadDialogs.forEach(function(item, i) {
-                dialogs.forEach(function(newItem, j) {
-                    if(newItem.id === item.id) {
-                        if(newItem.unread_messages > 0) {
-                            var data = {
-                                id: newItem.id,
-                                unread_messages: newItem.unread_messages
-                            }
-                            Vue.set(state.unreadDialogs, i, data);
-                            dialogs.splice(dialogs.indexOf(newItem), 1);
-                        }
-                        else {
-                            state.unreadDialogs.splice(state.unreadDialogs.indexOf(item), 1);
-                        }
-                    }
-                })
-            })
-            
-            dialogs.forEach(function(newItem, i) {
+            var newUnreadDialogs = function(newItem) {
                 if(newItem.unread_messages > 0) {
                     var data = {
                         id: newItem.id,
@@ -59,7 +41,38 @@ const module = {
                     }
                     state.unreadDialogs.push(data);
                 }
-            })
+            }
+            var updateUnreadDialogs = function(newItem) {
+                var isset = false;
+                state.unreadDialogs.forEach(function(item, i) {
+                    if(newItem.id == item.id) {
+                        isset = true;
+                        if(newItem.unread_messages > 0) {
+                            var data = {
+                                id: newItem.id,
+                                unread_messages: newItem.unread_messages
+                            }
+                            Vue.set(state.unreadDialogs, i, data);
+                        }
+                        else {
+                            state.unreadDialogs.splice(state.unreadDialogs.indexOf(item), 1);
+                        }
+                    }
+                })
+                if(!isset) {
+                    newUnreadDialogs(newItem)
+                }
+            }
+
+            if(dialogs instanceof Array) {
+                dialogs.forEach(function(newItem, j) {
+                    updateUnreadDialogs(newItem)
+                })
+            }
+            else {
+                updateUnreadDialogs(dialogs)
+            }
+
         },
         MESSAGES_REQUEST: (state, messages) => {
             state.messages = messages.reverse();
@@ -67,17 +80,19 @@ const module = {
         NEW_MESSAGE_REQUEST: (state, message) => {
             var exist = false;
             state.messages.forEach(function(item, i) {
-                if(item.id === message.id) {
+                if(item.id == message.id) {
                     Vue.set(state.messages, i, message);
                     exist = true;
                 }
             })
             if(!exist) {
-                state.messages.push(message);
+                if(state.dialog.id == message.dialog_id) {
+                    state.messages.push(message);
+                }
             }
 
             state.dialogs.forEach(function(item, i) {
-                if(item.id === message.dialog_id) {
+                if(item.id == message.dialog_id) {
                     state.dialogs[i].latest_message = message
                 }
             })
@@ -99,7 +114,8 @@ const module = {
                         id: dialogId,
                         unread_messages: 0
                     }
-                    commit('UNREAD_DIALOGS', [data])
+
+                    commit('UNREAD_DIALOGS', data)
 
                     return new Promise((resolve, reject) => {
                         axios.put('dialogs/mark_reed/'+dialogId).then(resp => {
@@ -119,8 +135,10 @@ const module = {
                 Echo.leave(channelName);
             }
             Echo.private(channelName).listen('.new-dialog', (e) => {
-                commit('NEW_DIALOG', e.data)
-                commit('UNREAD_DIALOGS', [e.data])
+                if(state.dialog.id == e.data.id) {
+                    commit('NEW_DIALOG', e.data)
+                }
+                commit('UNREAD_DIALOGS', e.data)
             });
 
             return new Promise((resolve, reject) => {
