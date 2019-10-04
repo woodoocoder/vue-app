@@ -13,7 +13,7 @@
         <div class="col-md-9 order-1 order-md-0 mt-2">
             <div class="row">
                 <div v-for="item in users"
-                    v-bind:item="item" :key="item.id"
+                    v-bind:item="item" :key="(item&&item.id)?item.id:null"
                     class="col-6 col-md-4 col-lg-3" @click="openProfile(item.id)">
                         <user-card :user="item" />
                 </div>

@@ -48,7 +48,7 @@
         </div>
     </div>
 
-    <div class="col-12 mt-3 order-sm-2">
+    <div class="col-12 mt-2 order-sm-2">
         <carousel></carousel>
     </div>
 

@@ -1,13 +1,12 @@
 <template>
     <div class="row">
+        <div v-if="userId == null || userId == authUser.id" class="col-12  mt-1 mb-1" id="upload-block">
+            <div class="upload-btn text-primary" @click="showUploadModal=true">Upload new photo</div>
+        </div>
         <div class="col-12">
             <slick
                 ref="slick"
                 :options="slickOptions">
-
-                <div id="upload-block">
-                    <div class="upload-btn" @click="showUploadModal=true">+</div>
-                </div>
                 <div v-for="item in files"
                     v-bind:item="item" :key="item.id">
                     <img :src="item.src">

@@ -89,14 +89,14 @@ export default {
             return store.getters['dialogs/unreadDialogs']
         },
         unreadDialogsStr() {
-            return this.unreadDialogs.length<100?this.unreadDialogs.length:'99+';
+            return this.unreadDialogs.length<99?this.unreadDialogs.length:'99+';
         },
         likes() {
             return store.getters['likes/likes']
         },
         unreadLikes() {
             var unreadCount = store.getters['likes/unreadCount']
-            return unreadCount<100?unreadCount:'99+';
+            return unreadCount<99?unreadCount:'99+';
         },
     },
     watch: {
@@ -134,7 +134,7 @@ export default {
                     src: ['./accomplished.mp3'],
                     html5: true,
                     preload: true,
-                    volume: .7,
+                    volume: .8,
                     onplayerror: function() {
                         _this.sound.once('unlock', function() {
                             _this.sound.play();
