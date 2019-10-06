@@ -56,7 +56,16 @@
                                 <div @click="openProfile(item.user.id)" class="col-5 pt-2">
                                     <h5>{{item.user.firstname}}</h5>
                                 </div>
-                                <div class="col-4 pt-4 text-danger">Block user</div>
+                                <div class="col-4 pt-4 text-danger">
+                                    <button class="btn btn-large btn-primary" data-toggle="confirmation"
+                                        data-btn-ok-label="Continue" data-btn-ok-class="btn-success"
+                                        data-btn-ok-icon-class="material-icons" data-btn-ok-icon-content="check"
+                                        data-btn-cancel-label="Stoooop!" data-btn-cancel-class="btn-danger"
+                                        data-btn-cancel-icon-class="material-icons" data-btn-cancel-icon-content="close"
+                                        data-title="Is it ok?" data-content="This might be dangerous">
+                                        Confirmation
+                                    </button>
+                                    Block user</div>
                             </div>
                         </div>
                     </div>
