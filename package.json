@@ -16,7 +16,7 @@
         "howler": "^2.1.2",
         "jquery": "^3.5",
         "laravel-mix": "^4.1.4",
-        "lodash": "^4.17.19",
+        "lodash": "^4.17.21",
         "nouislider": "^13.1.5",
         "popper.js": "^1.12",
         "resolve-url-loader": "^2.3.1",
